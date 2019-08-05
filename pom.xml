@@ -11,4 +11,25 @@
         <module>GoogleWagonTest</module>
     </modules>
 
+    <build>
+        <extensions>
+            <extension>
+                <groupId>com.gkatzioura.maven.cloud</groupId>
+                <artifactId>google-storage-wagon</artifactId>
+                <version>1.7</version>
+            </extension>
+        </extensions>
+    </build>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>gpnk-snapshot</id>
+            <url>gs://gpnk-sandbox-maven-repo/snapshot</url>
+        </snapshotRepository>
+        <repository>
+            <id>gpnk-release</id>
+            <url>gs://gpnk-sandbox-maven-repo/release</url>
+        </repository>
+    </distributionManagement>
+
 </project>
