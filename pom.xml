@@ -9,6 +9,7 @@
 
     <modules>
         <module>GoogleWagonTest</module>
+        <module>HelloWorldService</module>
     </modules>
 
     <build>
