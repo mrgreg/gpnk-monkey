@@ -2,14 +2,17 @@ package com.gpnk.server;
 
 import com.gpnk.helloworld.HelloWorldResource;
 import com.gpnk.helloworld.PingHealthCheck;
+import com.gpnk.models.HelloWorldConfiguration;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.glassfish.jersey.logging.LoggingFeature;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Our sample Application class.
+ */
 public class HelloWorldApplication extends Application<HelloWorldConfiguration> {
 
     // Created using this as a reference: https://www.dropwizard.io/1.3.13/docs/getting-started.html
@@ -32,23 +35,39 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
     // TODO: code static analysis tools (checkstyle, etc.)
     // TODO: build static analysis tools (dependency version checking, etc.)
 
-
-    public static void main(String[] args) throws Exception {
+    /**
+     * Main method for the Application.
+     * @param args - Application's arguments
+     * @throws Exception - Throws Exception from the Application.
+     */
+    public static void main(final String[] args) throws Exception {
         new HelloWorldApplication().run(args);
     }
 
+    /**
+     * @return Name of the app.
+     */
     @Override
     public String getName() {
         return "hello-world";
     }
 
+    /**
+     * Initialize the app.
+     * @param bootstrap - DropWizard's bootstrap class.
+     */
     @Override
-    public void initialize(Bootstrap<HelloWorldConfiguration> bootstrap) {
+    public void initialize(final Bootstrap<HelloWorldConfiguration> bootstrap) {
         // nothing yet
     }
 
+    /**
+     * Configures the app with resources, healthchecks, logging, etc.
+     * @param configuration - config from hello-world.yml
+     * @param environment - Dropwizard's environment
+     */
     @Override
-    public void run(HelloWorldConfiguration configuration, Environment environment) throws Exception {
+    public void run(final HelloWorldConfiguration configuration, final Environment environment) throws Exception {
 
         // TODO: use DI to bind and register application specific resources
         final HelloWorldResource resource = new HelloWorldResource(

@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+    "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+    "https://checkstyle.org/dtds/configuration_1_3.dtd">
+
+<!--
+
+  This config is obtained from:
+  https://github.com/checkstyle/checkstyle/blob/6bab0788365ba9afb713e14d9f6263f1f60b7aa2/src/main/resources/sun_checks.xml
+  and modified for GPNK.
+
+  Checkstyle configuration that checks the sun coding conventions from:
+
+    - the Java Language Specification at
+      https://docs.oracle.com/javase/specs/jls/se11/html/index.html
+
+    - the Sun Code Conventions at https://www.oracle.com/technetwork/java/codeconvtoc-136057.html
+
+    - the Javadoc guidelines at
+      https://www.oracle.com/technetwork/java/javase/documentation/index-137868.html
+
+    - the JDK Api documentation https://docs.oracle.com/en/java/javase/11/
+
+    - some best practices
+
+  Checkstyle is very configurable. Be sure to read the documentation at
+  https://checkstyle.org (or in your downloaded distribution).
+
+  Most Checks are configurable, be sure to consult the documentation.
+
+  To completely disable a check, just comment it out or delete it from the file.
+
+  Finally, it is worth reading the documentation.
+
+-->
+
+<module name="Checker">
+  <!-- Configure a checker to handle files with the UTF-8 charset -->
+  <property name="charset" value="UTF-8"/>
+  <!-- Do not stop on Exception, print it as a violation -->
+  <property name="haltOnException" value="false"/>
+  <!-- File types a checker should handle -->
+  <property name="fileExtensions" value="java, xml, properties"/>
+
+  <!-- Excludes all 'module-info.java' files              -->
+  <!-- See https://checkstyle.org/config_filefilters.html -->
+  <module name="BeforeExecutionExclusionFileFilter">
+    <property name="fileNamePattern" value="module\-info\.java$"/>
+  </module>
+
+  <!-- Checks whether files end with a new line.                        -->
+  <!-- See https://checkstyle.org/config_misc.html#NewlineAtEndOfFile -->
+  <module name="NewlineAtEndOfFile"/>
+
+  <!-- Checks that property files contain the same keys.         -->
+  <!-- See https://checkstyle.org/config_misc.html#Translation -->
+  <module name="Translation"/>
+
+  <!-- Checks for Size Violations.                    -->
+  <!-- See https://checkstyle.org/config_sizes.html -->
+  <module name="FileLength"/>
+
+  <!-- Checks for whitespace                               -->
+  <!-- See https://checkstyle.org/config_whitespace.html -->
+  <module name="FileTabCharacter"/>
+
+  <!-- Miscellaneous other checks.                   -->
+  <!-- See https://checkstyle.org/config_misc.html -->
+  <module name="RegexpSingleline">
+    <property name="format" value="\s+$"/>
+    <property name="minimum" value="0"/>
+    <property name="maximum" value="0"/>
+    <property name="message" value="Line has trailing spaces."/>
+  </module>
+
+  <module name="TreeWalker">
+
+    <!-- Checks for Javadoc comments.                     -->
+    <!-- See https://checkstyle.org/config_javadoc.html -->
+    <!-- Need CheckStyle 8.23 for this check, Maven plugin currently on CheckStyle 8.19  -->
+    <!--    <module name="InvalidJavadocPosition"/>-->
+    <module name="JavadocMethod"/>
+    <module name="JavadocType"/>
+    <module name="JavadocStyle"/>
+    <!-- Need CheckStyle 8.23 for this check, Maven plugin currently on CheckStyle 8.19  -->
+    <!--    <module name="MissingJavadocMethod"/>-->
+
+    <!-- Checks for Naming Conventions.                  -->
+    <!-- See https://checkstyle.org/config_naming.html -->
+    <module name="ConstantName"/>
+    <module name="LocalFinalVariableName"/>
+    <module name="LocalVariableName"/>
+    <module name="MemberName"/>
+    <module name="MethodName"/>
+    <module name="PackageName"/>
+    <module name="ParameterName"/>
+    <module name="StaticVariableName"/>
+    <module name="TypeName"/>
+
+    <!-- Checks for imports                              -->
+    <!-- See https://checkstyle.org/config_import.html -->
+    <module name="AvoidStarImport"/>
+    <module name="IllegalImport"/> <!-- defaults to sun.* packages -->
+    <module name="RedundantImport"/>
+    <module name="UnusedImports">
+      <property name="processJavadoc" value="false"/>
+    </module>
+
+    <!-- Checks for Size Violations.                    -->
+    <!-- See https://checkstyle.org/config_sizes.html -->
+    <module name="LineLength">
+      <!-- Well, Greg, I think this is quite generous :) -->
+      <property name="max" value="150"/>
+    </module>
+    <module name="MethodLength"/>
+    <module name="ParameterNumber"/>
+
+    <!-- Checks for whitespace                               -->
+    <!-- See https://checkstyle.org/config_whitespace.html -->
+    <module name="EmptyForIteratorPad"/>
+    <module name="GenericWhitespace"/>
+    <module name="MethodParamPad"/>
+    <module name="NoWhitespaceAfter"/>
+    <module name="NoWhitespaceBefore"/>
+    <module name="OperatorWrap"/>
+    <module name="ParenPad"/>
+    <module name="TypecastParenPad"/>
+    <module name="WhitespaceAfter"/>
+    <module name="WhitespaceAround"/>
+
+    <!-- Modifier Checks                                    -->
+    <!-- See https://checkstyle.org/config_modifiers.html -->
+    <module name="ModifierOrder"/>
+    <module name="RedundantModifier"/>
+
+    <!-- Checks for blocks. You know, those {}'s         -->
+    <!-- See https://checkstyle.org/config_blocks.html -->
+    <module name="AvoidNestedBlocks"/>
+    <module name="EmptyBlock"/>
+    <module name="LeftCurly"/>
+    <module name="NeedBraces"/>
+    <module name="RightCurly"/>
+
+    <!-- Checks for common coding problems               -->
+    <!-- See https://checkstyle.org/config_coding.html -->
+    <module name="EmptyStatement"/>
+    <module name="EqualsHashCode"/>
+    <module name="IllegalInstantiation"/>
+    <module name="InnerAssignment"/>
+    <!-- MagicNumber makes sure all numbers within the code are defined as constants  -->
+    <!-- I think we can skip the MagicNumber? -->
+    <!--    <module name="MagicNumber"/>-->
+    <module name="MissingSwitchDefault"/>
+    <module name="MultipleVariableDeclarations"/>
+    <module name="SimplifyBooleanExpression"/>
+    <module name="SimplifyBooleanReturn"/>
+
+    <!-- Checks for class design                         -->
+    <!-- See https://checkstyle.org/config_design.html -->
+    <module name="DesignForExtension"/>
+    <module name="FinalClass"/>
+    <module name="HideUtilityClassConstructor"/>
+    <module name="InterfaceIsType"/>
+    <module name="VisibilityModifier"/>
+
+    <!-- Miscellaneous other checks.                   -->
+    <!-- See https://checkstyle.org/config_misc.html -->
+    <module name="ArrayTypeStyle"/>
+    <module name="FinalParameters"/>
+    <module name="UpperEll"/>
+
+  </module>
+
+</module>

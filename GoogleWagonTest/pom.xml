@@ -8,6 +8,12 @@
   <name>GoogleWagonTest</name>
   <url>http://maven.apache.org</url>
 
+  <parent>
+    <groupId>com.gpnk</groupId>
+    <artifactId>gpnk-monkey-aggregator</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
   <properties>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
@@ -23,6 +29,12 @@
   </dependencies>
 
   <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+      </plugin>
+    </plugins>
     <extensions>
       <extension>
         <groupId>com.gkatzioura.maven.cloud</groupId>
