@@ -5,6 +5,10 @@ import com.gpnk.helloworld.PingHealthCheck;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import org.glassfish.jersey.logging.LoggingFeature;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class HelloWorldApplication extends Application<HelloWorldConfiguration> {
 
@@ -55,6 +59,15 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 
         // TODO: use DI to bind and register application specific HealthChecks
         environment.healthChecks().register("ping", new PingHealthCheck());
+
+        // Enable logging of REST requests and responses on the server
+        // TODO: enable logging in a similar way on the REST client
+        // Verbosity determines how detailed the logged message is, currently logs headers and text (which is everything);
+        // maxEntitySize - maximum number of entity bytes to log and buffer, will print and buffer up to the specified
+        // number of bytes cutting off the rest.
+        // For more details: https://www.javaguides.net/2018/06/jersey-rest-logging-using-loggingfeature.html
+        environment.jersey().register(new LoggingFeature(Logger.getLogger(LoggingFeature.DEFAULT_LOGGER_NAME),
+                Level.INFO, LoggingFeature.Verbosity.PAYLOAD_ANY, 10000));
 
     }
 }
