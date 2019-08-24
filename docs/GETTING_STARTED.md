@@ -4,7 +4,7 @@
 
 [Atlassian Tutorial](https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-config)
 
-We want to maintain a linear git history, so we want to enforce allowing fast-forward merges, only.  This can be enforced in github, but not on a free account.  For now, please run `git config --global merge.ff only` to enforce that locally, and don't click the `merge` button on github PRs.
+We want to maintain a linear git history, so we want to enforce allowing fast-forward merges, only.  This is enforced in github.  To similarly enforce ff merges only locally, please run `git config --global merge.ff only`.
 
 If you'd like to set this for a single branch instead of globally, use `--local` instead of `--global`.
 
