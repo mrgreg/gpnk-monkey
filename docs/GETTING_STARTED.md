@@ -1,5 +1,20 @@
 # Getting Started
 
+### Git configuration
+
+[Atlassian Tutorial](https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-config)
+
+We want to maintain a linear git history, so we want to enforce allowing fast-forward merges, only.  This can be enforced in github, but not on a free account.  For now, please run `git config --global merge.ff only` to enforce that locally, and don't click the `merge` button on github PRs.
+
+If you'd like to set this for a single branch instead of globally, use `--local` instead of `--global`.
+
+
+(On a new machine) You may also want to set values such as
+* `git config --global user.email "your_email@example.com"`
+* `git config --global user.name "MyGitName"`
+* `git config --global core.editor "vim"`
+* `git config --global alias.amend ci --amend`
+
 ### Setup SSH Authorization with GitHub
 
 If you are not sure whether or not you have an existing SSH key, [check for existing SSH keys.](https://help.github.com/en/articles/checking-for-existing-ssh-keys)
@@ -9,6 +24,23 @@ If there is no existing SSH key, [generate a new SSH key.](https://help.github.c
 [Add the SSH key to your GitHub account.](https://help.github.com/en/articles/adding-a-new-ssh-key-to-your-github-account)
 
 You should now be able to checkout/clone GitHub projects via SSH.
+
+### Setup Maven
+
+Maven artifacts are stored in a google cloud bucket called `gpnk-sandbox-maven-repo`.  For now, repos are configured explicitly in pom files.
+
+TODO: make a working `~/.m2/settings.xml` and put it here.  Remove repo details from pom files
+
+### Setup Google Cloud
+
+Greg will need to grant appropriate permissions in our gcloud account [GPNK-sandbox](https://console.cloud.google.com/home/dashboard?project=gpnk-sandbox&pli=1) and on our [github repo](https://github.com/mrgreg/gpnk-monkey).  Once that's done:
+
+* Install Google Cloud CLI
+  * [linux](https://cloud.google.com/sdk/docs/quickstart-linux)
+  * [mac](https://cloud.google.com/sdk/docs/quickstart-macos)
+* Clone the develop branch of the gpnk-monkey repo
+* Run `gcloud auth application-default login`
+* Run `mvn clean deploy` to verify it works
 
 ### Increase IntelliJ Memory Limits
 
