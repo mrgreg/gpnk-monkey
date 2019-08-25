@@ -17,6 +17,9 @@
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
     <version.dropwizard>2.0.0-rc4</version.dropwizard>
+    <version.guice>4.2.2</version.guice>
+    <version.lombok>1.18.8</version.lombok>
+    <version.sangria>1.3</version.sangria>
   </properties>
 
   <dependencies>
@@ -25,6 +28,24 @@
       <groupId>io.dropwizard</groupId>
       <artifactId>dropwizard-core</artifactId>
       <version>${version.dropwizard}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.inject</groupId>
+      <artifactId>guice</artifactId>
+      <version>${version.guice}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.tavianator.sangria</groupId>
+      <artifactId>sangria-slf4j</artifactId>
+      <version>${version.sangria}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${version.lombok}</version>
     </dependency>
 
   </dependencies>

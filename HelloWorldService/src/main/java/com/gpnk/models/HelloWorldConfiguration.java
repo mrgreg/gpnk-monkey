@@ -1,39 +1,15 @@
 package com.gpnk.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
+import lombok.Getter;
 
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 public class HelloWorldConfiguration extends Configuration {
 
+    @Getter
     @NotEmpty
-    private String template;
-
-    @NotEmpty
-    private String defaultName = "Stranger";
-
-    @JsonProperty
-    public String getTemplate() {
-        return template;
-    }
-
-    @JsonProperty
-    public void setTemplate(String template) {
-        this.template = template;
-    }
-
-    @JsonProperty
-    public String getDefaultName() {
-        return defaultName;
-    }
-
-    @JsonProperty
-    public void setDefaultName(String name) {
-        this.defaultName = name;
-    }
-
-
-
+    private List<String> modules;
 
 }

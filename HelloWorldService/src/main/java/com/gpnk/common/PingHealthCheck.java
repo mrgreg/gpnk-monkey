@@ -1,16 +1,14 @@
-package com.gpnk.helloworld;
+package com.gpnk.common;
 
 import com.codahale.metrics.health.HealthCheck;
 
 /**
- * Application's HealthCheck.
+ * Ping HealthCheck that always returns healthy.
  */
 public class PingHealthCheck extends HealthCheck {
 
     /**
-     * Main healthcheck.
-     * @return Result of the health check.
-     * @throws Exception Propagates errors up.
+     * Always returns healthy.
      */
     @Override
     protected Result check() throws Exception {
