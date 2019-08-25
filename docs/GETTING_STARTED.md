@@ -42,6 +42,12 @@ Greg will need to grant appropriate permissions in our gcloud account [GPNK-sand
 * Run `gcloud auth application-default login`
 * Run `mvn clean deploy` to verify it works
 
+### IntelliJ plugins
+
+* Lombok
+* CheckStyle-IDEA
+
+
 ### Increase IntelliJ Memory Limits
 
 IntelliJ IDEA's default settings for `-Xms` and `-Xms` are rather small, so it may take a long time to start up and struggle to run our applications.

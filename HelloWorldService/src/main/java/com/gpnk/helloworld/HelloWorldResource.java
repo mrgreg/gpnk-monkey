@@ -1,8 +1,10 @@
 package com.gpnk.helloworld;
 
 import com.codahale.metrics.annotation.Timed;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+import com.gpnk.common.Resource;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -16,21 +18,21 @@ import java.util.Optional;
  */
 @Path("/hello-world")
 @Produces(MediaType.APPLICATION_JSON)
-public class HelloWorldResource {
+public class HelloWorldResource implements Resource {
 
-    private final Logger log = LoggerFactory.getLogger(HelloWorldResource.class);
+    @Inject
+    private Logger log;
 
-    private final String template;
-    private final String defaultName;
+    @Inject
+    @Named("template")
+    private String template;
 
-    /**
-     * Main constructor.
-     * @param template - Response template.
-     * @param defaultName - default name to use.
-     */
-    public HelloWorldResource(final String template, final String defaultName) {
-        this.template = template;
-        this.defaultName = defaultName;
+    @Inject
+    @Named("defaultName")
+    private String defaultName;
+
+    /** Default constructor for injection. */
+    public HelloWorldResource() {
     }
 
     /**

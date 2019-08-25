@@ -79,9 +79,15 @@
     <!-- See https://checkstyle.org/config_javadoc.html -->
     <!-- Need CheckStyle 8.23 for this check, Maven plugin currently on CheckStyle 8.19  -->
     <!--    <module name="InvalidJavadocPosition"/>-->
-    <module name="JavadocMethod"/>
+    <module name="JavadocMethod">
+      <property name="allowMissingParamTags" value="true"/>
+      <property name="allowMissingThrowsTags" value="true"/>
+      <property name="allowMissingReturnTag" value="true"/>
+    </module>
     <module name="JavadocType"/>
-    <module name="JavadocStyle"/>
+    <module name="JavadocStyle">
+      <property name="checkFirstSentence" value="false"/>
+    </module>
     <!-- Need CheckStyle 8.23 for this check, Maven plugin currently on CheckStyle 8.19  -->
     <!--    <module name="MissingJavadocMethod"/>-->
 
@@ -157,7 +163,7 @@
 
     <!-- Checks for class design                         -->
     <!-- See https://checkstyle.org/config_design.html -->
-    <module name="DesignForExtension"/>
+    <!-- <module name="DesignForExtension"/> -->
     <module name="FinalClass"/>
     <module name="HideUtilityClassConstructor"/>
     <module name="InterfaceIsType"/>
