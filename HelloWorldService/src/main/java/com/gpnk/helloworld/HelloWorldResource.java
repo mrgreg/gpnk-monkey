@@ -4,9 +4,13 @@ import com.codahale.metrics.annotation.Timed;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.gpnk.common.Resource;
+import com.gpnk.models.User;
+import com.gpnk.models.WeatherReport;
 import org.slf4j.Logger;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -24,12 +28,19 @@ public class HelloWorldResource implements Resource {
     private Logger log;
 
     @Inject
-    @Named("template")
-    private String template;
+    @Named("nameOnlyTemplate")
+    private String nameOnlyTemplate;
+
+    @Inject
+    @Named("weatherTemplate")
+    private String weatherTemplate;
 
     @Inject
     @Named("defaultName")
     private String defaultName;
+
+    @Inject
+    private HelloWorldService helloWorldService;
 
     /** Default constructor for injection. */
     public HelloWorldResource() {
@@ -43,9 +54,27 @@ public class HelloWorldResource implements Resource {
     @GET
     @Timed
     public String sayHello(@QueryParam("name") final Optional<String> name) {
-        performSampleLogging("Get method /sayHello called. Using name = " + name.orElse(defaultName));
-        final String value = String.format(template, name.orElse(defaultName));
-        return value;
+
+        if (name.isPresent()) {
+            log.debug("hello called with user {}", name.get());
+            Optional<WeatherReport> weatherForUser = helloWorldService.getWeatherForUser(name.get());
+            if (weatherForUser.isPresent()) {
+                return String.format(weatherTemplate, name.get(), weatherForUser.get().toString());
+            }
+        }
+        return String.format(nameOnlyTemplate, name.orElse(defaultName));
+    }
+
+    /**
+     * Sample PUT method.
+     * Creates a user.
+     */
+    @PUT
+    @Path("/user")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Timed
+    public void createUser(final User user) {
+        helloWorldService.createUser(user);
     }
 
     /**
