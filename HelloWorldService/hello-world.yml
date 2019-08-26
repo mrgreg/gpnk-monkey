@@ -1,5 +1,6 @@
 modules:
   - com.gpnk.helloworld.HelloWorldModule
+  - com.gpnk.weather.WeatherModule
 
 # DropWizard Logging defaults are specified here: https://www.dropwizard.io/0.7.1/docs/manual/configuration.html#logging
 # Logging can be customized as shown below:
