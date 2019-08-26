@@ -99,6 +99,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
                 log.info("Adding module: " + moduleName);
             } catch (Exception e) {
                 e.printStackTrace();
+                log.error("Error adding module: " + moduleName, e);
                 System.exit(1);
             }
         });
