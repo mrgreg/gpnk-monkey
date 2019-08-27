@@ -38,10 +38,9 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
     // TODO: flyway
     // TODO: jooq (worth looking into JDBI?)
     // TODO: gRPC (both server side and generate client modules)
-    // TODO: version resource (on admin port?)
     // TODO: swagger doc generation and hosting
     // TODO: make Configuration generic, but also allow per application settings
-    // TODO: register AdminResources
+    // TODO: register AdminResources (migrate VersionResource to admin)
 
 
     // Build based TODOs:

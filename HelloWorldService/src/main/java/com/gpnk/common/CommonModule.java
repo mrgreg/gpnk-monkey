@@ -8,6 +8,7 @@ public class CommonModule extends GPNKModule {
     @Override
     protected void config() {
         bindResource(PingResource.class);
+        bindResource(VersionResource.class);
         bindHealthCheck(PingHealthCheck.class);
     }
 }
