@@ -9,6 +9,7 @@
 
     <properties>
         <version.checkstyle>3.1.0</version.checkstyle>
+        <version.spotbugs>3.1.12</version.spotbugs>
     </properties>
 
     <modules>
@@ -22,6 +23,13 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${version.checkstyle}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>8.23</version>
+                    </dependency>
+                </dependencies>
                 <configuration>
                     <configLocation>static-analysis/gpnk-checkstyle.xml</configLocation>
                     <failsOnError>true</failsOnError>
@@ -39,7 +47,39 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <!-- FindBugs successor that works with Java 11 -->
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>${version.spotbugs}</version>
+                <dependencies>
+                    <!-- overwrite dependency on spotbugs if you want to specify the version of spotbugs -->
+                    <dependency>
+                        <groupId>com.github.spotbugs</groupId>
+                        <artifactId>spotbugs</artifactId>
+                        <version>4.0.0-beta3</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <failOnError>true</failOnError>
+                    <effort>Max</effort>
+                    <threshold>Med</threshold>
+                    <excludeFilterFile>${project.basedir}/../static-analysis/spotbugs-exclude.xml</excludeFilterFile>
+                    <xmlOutput>true</xmlOutput>
+                    <includeTests>true</includeTests>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>analyze-spotbugs</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
+
         <extensions>
             <extension>
                 <groupId>com.gkatzioura.maven.cloud</groupId>

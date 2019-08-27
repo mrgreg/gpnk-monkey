@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter
+    xmlns="https://github.com/spotbugs/filter/3.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://github.com/spotbugs/filter/3.0.0 https://raw.githubusercontent.com/spotbugs/spotbugs/3.1.0/spotbugs/etc/findbugsfilter.xsd">
+
+  <Match>
+    <Class name="com.gpnk.server.HelloWorldApplication"/>
+    <Bug pattern="DM_EXIT"/>
+  </Match>
+
+  <!-- mutable object manipulation -->
+  <Match>
+    <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2" />
+  </Match>
+
+  <!-- doesn't override equals from superclass -->
+  <Match>
+    <Bug pattern="EQ_DOESNT_OVERRIDE_EQUALS"/>
+  </Match>
+
+  <!-- assign static fields from instance -->
+  <Match>
+    <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD"/>
+  </Match>
+
+  <!-- unread/unused public/protected field -->
+  <Match>
+    <Bug pattern="URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD,UUF_UNUSED_PUBLIC_OR_PROTECTED_FIELD"/>
+  </Match>
+
+  <!-- ignore return value of method where implementation is, at times, in another project -->
+  <Match>
+    <Bug pattern="RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT"/>
+  </Match>
+
+</FindBugsFilter>
