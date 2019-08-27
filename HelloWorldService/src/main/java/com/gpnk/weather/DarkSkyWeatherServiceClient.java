@@ -34,7 +34,7 @@ public class DarkSkyWeatherServiceClient implements WeatherServiceClient {
     public Optional<WeatherReport> getWeatherForLocation(final Location location) {
 
         try {
-            URL url = new URL(API_URL);
+            new URL(API_URL);
         } catch (MalformedURLException e) {
             log.error("Malformed URL for Dark Sky API", e);
         }
