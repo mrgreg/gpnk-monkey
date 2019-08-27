@@ -76,19 +76,4 @@ public class HelloWorldResource implements Resource {
     public void createUser(final User user) {
         helloWorldService.createUser(user);
     }
-
-    /**
-     * Demonstrates logging. As per logback config in hello.yml, messages at DEBUG
-     * level and higher are printed to console appender.
-     * @param message - message to print to logs.
-     */
-    private void performSampleLogging(final String message) {
-        log.trace(message);
-        log.debug(message);
-        log.info(message);
-        log.warn(message);
-        log.error(message);
-    }
-
-
 }

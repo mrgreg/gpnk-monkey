@@ -13,7 +13,7 @@ If you'd like to set this for a single branch instead of globally, use `--local`
 * `git config --global user.email "your_email@example.com"`
 * `git config --global user.name "MyGitName"`
 * `git config --global core.editor "vim"`
-* `git config --global alias.amend ci --amend`
+* Any other shortcuts you like.  Good examples can be found [here](https://medium.com/the-lazy-developer/five-life-changing-git-aliases-e4211c090017)
 
 ### Setup SSH Authorization with GitHub
 
