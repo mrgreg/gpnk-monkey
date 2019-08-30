@@ -11,7 +11,7 @@ import java.util.Optional;
  */
 public class FakeUserDAO implements UserDAO {
 
-    private Map<String, User> users = new HashMap<>();
+    private final Map<String, User> users = new HashMap<>();
 
     @Override
     public Optional<User> getUserByName(final String name) {

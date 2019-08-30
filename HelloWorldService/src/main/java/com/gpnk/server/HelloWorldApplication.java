@@ -80,6 +80,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
      * @param configuration - config from hello-world.yml
      * @param environment - Dropwizard's environment
      */
+    @SuppressWarnings({"PMD.AvoidPrintStackTrace", "PMD.DoNotCallSystemExit"})
     @Override
     public void run(final HelloWorldConfiguration configuration, final Environment environment) throws Exception {
 

@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+
+<ruleset name="Custom Rules"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+
+  <description>
+    PMD checks the source code for bad practices listed in this file.
+  </description>
+
+  <!-- Reference for PMD rules: https://pmd.github.io/latest/pmd_rules_java.html -->
+  <rule ref="category/java/bestpractices.xml">
+    <exclude name="AvoidUsingHardCodedIP"/>
+    <exclude name="AvoidStringBufferField"/>
+    <exclude name="GuardLogStatement"/>
+  </rule>
+
+  <rule ref="category/java/multithreading.xml/NonThreadSafeSingleton"/>
+
+  <!-- There are a lot of rules in this category. We may want to exclude more with time. -->
+  <rule ref="category/java/errorprone.xml">
+    <!--  Currently PMD considers every class a "bean" and-->
+    <!--  warns about "Found non-transient, non-static member" on every class field.-->
+    <!--  Removing the rule for now. -->
+    <exclude name="BeanMembersShouldSerialize"/>
+    <exclude name="EmptyCatchBlock"/>
+    <exclude name="EmptyIfStmt"/>
+    <exclude name="AvoidDuplicateLiterals"/>
+    <!--  Special config for this rule below  -->
+    <exclude name="DataflowAnomalyAnalysis"/>
+  </rule>
+
+  <!-- Ignore the "Found 'UR'-anomaly for variable..." part of the rule, as it triggers for lambdas -->
+  <rule ref="category/java/errorprone.xml/DataflowAnomalyAnalysis">
+    <properties>
+      <property name="violationSuppressRegex" value="^Found 'UR'-anomaly.*"/>
+    </properties>
+  </rule>
+
+  <rule ref="category/java/performance.xml/UseArraysAsList"/>
+  <rule ref="category/java/performance.xml/AvoidArrayLoops"/>
+  <rule ref="category/java/performance.xml/AddEmptyString"/>
+
+  <!-- There are a lot of rules in this category. We may want to exclude more with time. -->
+  <rule ref="category/java/design.xml">
+    <exclude name="LawOfDemeter"/>
+    <exclude name="CollapsibleIfStatements"/>
+    <exclude name="SignatureDeclareThrowsException"/>
+    <exclude name="AvoidCatchingGenericException"/>
+    <exclude name="AvoidThrowingRawExceptionTypes"/>
+  </rule>
+
+  <rule ref="category/java/codestyle.xml/UnnecessaryModifier"/>
+  <rule ref="category/java/codestyle.xml/UnnecessaryReturn"/>
+  <rule ref="category/java/codestyle.xml/UselessQualifiedThis"/>
+  <rule ref="category/java/codestyle.xml/UnnecessaryModifier"/>
+  <rule ref="category/java/codestyle.xml/FieldDeclarationsShouldBeAtStartOfClass"/>
+
+</ruleset>

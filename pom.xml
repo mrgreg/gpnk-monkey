@@ -8,8 +8,11 @@
     <name>gpnk-monkey-aggregator</name>
 
     <properties>
+        <maven.compiler.target>11</maven.compiler.target>
         <version.checkstyle>3.1.0</version.checkstyle>
         <version.spotbugs>3.1.12</version.spotbugs>
+        <version.pmd>6.17.0</version.pmd>
+        <version.pmd.plugin>3.12.0</version.pmd.plugin>
     </properties>
 
     <modules>
@@ -47,6 +50,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <!-- FindBugs successor that works with Java 11 -->
@@ -71,6 +75,54 @@
                 <executions>
                     <execution>
                         <id>analyze-spotbugs</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${version.pmd.plugin}</version>
+                <dependencies>
+                    <!-- Use the latest version of pmd libraries -->
+                    <dependency>
+                        <groupId>net.sourceforge.pmd</groupId>
+                        <artifactId>pmd-core</artifactId>
+                        <version>${version.pmd}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>net.sourceforge.pmd</groupId>
+                        <artifactId>pmd-java</artifactId>
+                        <version>${version.pmd}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>net.sourceforge.pmd</groupId>
+                        <artifactId>pmd-javascript</artifactId>
+                        <version>${version.pmd}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>net.sourceforge.pmd</groupId>
+                        <artifactId>pmd-jsp</artifactId>
+                        <version>${version.pmd}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <targetJdk>${maven.compiler.target}</targetJdk>
+                    <failOnViolation>true</failOnViolation>
+                    <sourceEncoding>UTF-8</sourceEncoding>
+                    <linkXRef>false</linkXRef>
+                    <verbose>true</verbose>
+                    <rulesets>
+                        <ruleset>${project.basedir}/../static-analysis/pmd-rulesets.xml</ruleset>
+                    </rulesets>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>analyze-pmd</id>
                         <phase>test-compile</phase>
                         <goals>
                             <goal>check</goal>

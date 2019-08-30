@@ -9,6 +9,13 @@
     <Bug pattern="DM_EXIT"/>
   </Match>
 
+  <Match>
+    <!-- In the getWeatherForLocation() method, the try-with-resources probably is checking response for being null-->
+    <!-- before calling the close() method on it, which triggers this error. Ignore it here, but keep the rule.-->
+    <Class name="com.gpnk.weather.DarkSkyWeatherServiceClient"/>
+    <Bug pattern="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE"/>
+  </Match>
+
   <!-- mutable object manipulation -->
   <Match>
     <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2" />
