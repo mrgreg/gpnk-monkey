@@ -23,6 +23,7 @@ public class WeatherReport {
         this.skyCondition = currently.get("summary");
     }
 
+    @Override
     public String toString() {
         return temp + " degrees and " + skyCondition;
     }

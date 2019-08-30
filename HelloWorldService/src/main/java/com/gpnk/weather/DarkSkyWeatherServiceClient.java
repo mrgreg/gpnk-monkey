@@ -9,8 +9,6 @@ import org.slf4j.Logger;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Optional;
 
 /**
@@ -30,14 +28,9 @@ public class DarkSkyWeatherServiceClient implements WeatherServiceClient {
     private String secretKey;
 
 
+    @SuppressWarnings("PMD.CloseResource")
     @Override
     public Optional<WeatherReport> getWeatherForLocation(final Location location) {
-
-        try {
-            new URL(API_URL);
-        } catch (MalformedURLException e) {
-            log.error("Malformed URL for Dark Sky API", e);
-        }
 
         Response response = ClientBuilder.newClient()
                 .target(API_URL)
@@ -53,6 +46,7 @@ public class DarkSkyWeatherServiceClient implements WeatherServiceClient {
             return Optional.empty();
         }
 
+        // Re: PMD.CloseResource - response is closed within the readEntity method.
         WeatherReport weatherReport = response.readEntity(WeatherReport.class);
         return Optional.of(weatherReport);
     }
