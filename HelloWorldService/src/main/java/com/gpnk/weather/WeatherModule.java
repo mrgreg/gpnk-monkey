@@ -1,8 +1,9 @@
 package com.gpnk.weather;
 
+import com.gpnk.common.GPNKModule;
+
 import com.google.inject.Provides;
 import com.google.inject.name.Named;
-import com.gpnk.common.GPNKModule;
 
 /**
  * Bindings for WeatherServiceClient

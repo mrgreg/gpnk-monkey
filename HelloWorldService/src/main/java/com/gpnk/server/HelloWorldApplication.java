@@ -1,14 +1,15 @@
 package com.gpnk.server;
 
+import com.gpnk.common.CommonModule;
+import com.gpnk.common.Resource;
+import com.gpnk.models.HelloWorldConfiguration;
+
 import com.codahale.metrics.health.HealthCheck;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Key;
 import com.google.inject.Module;
 import com.google.inject.TypeLiteral;
-import com.gpnk.common.CommonModule;
-import com.gpnk.common.Resource;
-import com.gpnk.models.HelloWorldConfiguration;
 import com.tavianator.sangria.slf4j.SangriaSlf4jModule;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;

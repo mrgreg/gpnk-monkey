@@ -1,12 +1,13 @@
 package com.gpnk.helloworld;
 
-import com.google.inject.Inject;
-import com.gpnk.weather.WeatherServiceClient;
 import com.gpnk.models.Location;
 import com.gpnk.models.User;
 import com.gpnk.models.WeatherReport;
 import com.gpnk.persistence.LocationDAO;
 import com.gpnk.persistence.UserDAO;
+import com.gpnk.weather.WeatherServiceClient;
+
+import com.google.inject.Inject;
 
 import java.util.Optional;
 
@@ -27,7 +28,8 @@ public class HelloWorldService {
     /**
      * Default Constructor for DI
      */
-    public HelloWorldService() { }
+    public HelloWorldService() {
+    }
 
     /**
      * Returns a WeatherReport for the user's location, if it can be determined.
