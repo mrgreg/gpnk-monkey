@@ -1,11 +1,12 @@
 package com.gpnk.helloworld;
 
-import com.google.inject.name.Names;
 import com.gpnk.common.GPNKModule;
 import com.gpnk.persistence.FakeLocationDAO;
 import com.gpnk.persistence.FakeUserDAO;
 import com.gpnk.persistence.LocationDAO;
 import com.gpnk.persistence.UserDAO;
+
+import com.google.inject.name.Names;
 
 /**
  * Bindings for HelloWorld.

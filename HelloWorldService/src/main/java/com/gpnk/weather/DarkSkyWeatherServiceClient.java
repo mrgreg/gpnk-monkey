@@ -1,15 +1,18 @@
 package com.gpnk.weather;
 
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
 import com.gpnk.models.Location;
 import com.gpnk.models.WeatherReport;
+
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import org.slf4j.Logger;
+
+import java.util.Optional;
 
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Optional;
+
 
 /**
  * Implementation of WeatherServiceClient that is backed by Dark Sky API

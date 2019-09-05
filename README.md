@@ -61,6 +61,8 @@ The default value of `-XX:ReservedCodeCacheSize=240m` seems fine and does not co
 
 #### CheckStyle
 
+[CheckStyle](https://checkstyle.org/) is a tool that enforces a coding style in Java code. 
+
 - Install CheckStyle in IntelliJ:
   - In IntelliJ, go to ``` File | Settings | Plugins ```.
   - Search for `CheckStyle` and install it.
@@ -70,6 +72,33 @@ The default value of `-XX:ReservedCodeCacheSize=240m` seems fine and does not co
   - CheckStyle can be run via `mvn checkstyle:check` command.  
   
 Our CheckStyle rules are configured in the `static-analysis/gpnk-checkstyle.xml` file. 
+
+Our CheckStyle configuration requires that Java imports are arranged in an alphabetical order in the following 
+groups:
+- Project imports `com.gpnk.*`
+- All other imports
+- `java.*` packages
+- `javax.*` packages
+
+In order to make IntelliJ Import Optimization (`Ctrl + Alt + O` shortcut) comply with the above configure 
+`Settings | Editor | Code Style | Java`, `Import` tab as follows:
+- `General` - check `Use single class import`
+- `Class count to use import with *:` - set to the max allowed value of 99 (to effectively disable to use of `*` 
+imports on import optimizations)
+- `Names count to use static import with *:` - set to 99 (analogous to the above)
+-  `Import Layout`: configure as follows
+    - blank line
+    - import `com.gpnk.*`; make sure that `With Subpackages` is checked
+    - blank line
+    - import all other imports
+    - blank line
+    - import `java.*`; make sure that `With Subpackages` is checked
+    - blank line
+    - import `javax.*`; make sure that `With Subpackages` is checked
+    - blank line
+    - import static all other imports
+
+[Here is a screenshot of my `Import` configuration tab in IntelliJ](./intellij-settings-java-import.png).  
   
 #### SpotBugs vs PMD? Do we need both?
 

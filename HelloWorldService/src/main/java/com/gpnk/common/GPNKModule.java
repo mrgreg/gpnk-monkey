@@ -7,8 +7,8 @@ import com.google.inject.multibindings.Multibinder;
 /**
  * A base Guice module class.  Modules that extend GPNKModule have the benefit of being able to easily bind in
  * Resource, AdminResource, and HealthCheck classes.
- * <p>
- * Modules that directly extend AbstractModule will still work, but will need to bind the above types manually.
+ *
+ * <p>Modules that directly extend AbstractModule will still work, but will need to bind the above types manually.
  */
 public abstract class GPNKModule extends AbstractModule {
 
