@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.gpnk</groupId>
+  <artifactId>parent-pom</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <name>Parent Pom</name>
+  <description>Parent Pom for GPNK Modules</description>
+  <!-- A few more tags can be used here later, when opensourcing. -->
+  <!-- For example, <licenses/>, <developers/>, <scm> -->
+
+  <properties>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <skip.checks>false</skip.checks>
+
+    <version.gpnk>${project.version}</version.gpnk>
+
+    <version.checkstyle>8.23</version.checkstyle>
+    <version.checkstyle.plugin>3.1.0</version.checkstyle.plugin>
+    <version.spotbugs.plugin>3.1.12</version.spotbugs.plugin>
+    <version.spotbugs>4.0.0-beta3</version.spotbugs>
+    <version.pmd>6.17.0</version.pmd>
+    <version.pmd.plugin>3.12.0</version.pmd.plugin>
+
+    <version.dropwizard>2.0.0-rc4</version.dropwizard>
+    <version.guice>4.2.2</version.guice>
+    <version.lombok>1.18.8</version.lombok>
+    <version.sangria>1.3</version.sangria>
+    <version.junit>3.8.1</version.junit>
+
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.dropwizard</groupId>
+        <artifactId>dropwizard-core</artifactId>
+        <version>${version.dropwizard}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.google.inject</groupId>
+        <artifactId>guice</artifactId>
+        <version>${version.guice}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.tavianator.sangria</groupId>
+        <artifactId>sangria-slf4j</artifactId>
+        <version>${version.sangria}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>${version.lombok}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${version.junit}</version>
+        <scope>test</scope>
+      </dependency>
+
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-checkstyle-plugin</artifactId>
+          <version>${version.checkstyle.plugin}</version>
+          <dependencies>
+            <dependency>
+              <groupId>com.puppycrawl.tools</groupId>
+              <artifactId>checkstyle</artifactId>
+              <version>${version.checkstyle}</version>
+            </dependency>
+            <dependency>
+              <groupId>com.gpnk</groupId>
+              <artifactId>static-analysis</artifactId>
+              <version>${version.gpnk}</version>
+            </dependency>
+          </dependencies>
+          <configuration>
+            <skip>${skip.checks}</skip>
+            <configLocation>gpnk-checkstyle.xml</configLocation>
+            <failsOnError>true</failsOnError>
+            <encoding>UTF-8</encoding>
+            <consoleOutput>true</consoleOutput>
+            <excludes>**/models/**</excludes>
+          </configuration>
+          <executions>
+            <execution>
+              <id>verify-style</id>
+              <phase>validate</phase>
+              <goals>
+                <goal>check</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+
+        <plugin>
+          <groupId>com.github.spotbugs</groupId>
+          <!-- FindBugs successor that works with Java 11 -->
+          <artifactId>spotbugs-maven-plugin</artifactId>
+          <version>${version.spotbugs.plugin}</version>
+          <dependencies>
+            <!-- overwrite dependency on spotbugs if you want to specify the version of spotbugs -->
+            <dependency>
+              <groupId>com.github.spotbugs</groupId>
+              <artifactId>spotbugs</artifactId>
+              <version>${version.spotbugs}</version>
+            </dependency>
+            <dependency>
+              <groupId>com.gpnk</groupId>
+              <artifactId>static-analysis</artifactId>
+              <version>${version.gpnk}</version>
+            </dependency>
+          </dependencies>
+          <configuration>
+            <skip>${skip.checks}</skip>
+            <failOnError>true</failOnError>
+            <effort>Max</effort>
+            <threshold>Med</threshold>
+            <excludeFilterFile>spotbugs-exclude.xml</excludeFilterFile>
+            <xmlOutput>true</xmlOutput>
+            <includeTests>true</includeTests>
+          </configuration>
+          <executions>
+            <execution>
+              <id>analyze-spotbugs</id>
+              <phase>test-compile</phase>
+              <goals>
+                <goal>check</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-pmd-plugin</artifactId>
+          <version>${version.pmd.plugin}</version>
+          <dependencies>
+            <!-- Use the latest version of pmd libraries -->
+            <dependency>
+              <groupId>net.sourceforge.pmd</groupId>
+              <artifactId>pmd-core</artifactId>
+              <version>${version.pmd}</version>
+            </dependency>
+            <dependency>
+              <groupId>net.sourceforge.pmd</groupId>
+              <artifactId>pmd-java</artifactId>
+              <version>${version.pmd}</version>
+            </dependency>
+            <dependency>
+              <groupId>net.sourceforge.pmd</groupId>
+              <artifactId>pmd-javascript</artifactId>
+              <version>${version.pmd}</version>
+            </dependency>
+            <dependency>
+              <groupId>net.sourceforge.pmd</groupId>
+              <artifactId>pmd-jsp</artifactId>
+              <version>${version.pmd}</version>
+            </dependency>
+            <dependency>
+              <groupId>com.gpnk</groupId>
+              <artifactId>static-analysis</artifactId>
+              <version>${version.gpnk}</version>
+            </dependency>
+          </dependencies>
+          <configuration>
+            <skip>${skip.checks}</skip>
+            <targetJdk>${maven.compiler.target}</targetJdk>
+            <failOnViolation>true</failOnViolation>
+            <sourceEncoding>UTF-8</sourceEncoding>
+            <linkXRef>false</linkXRef>
+            <verbose>true</verbose>
+            <rulesets>
+              <ruleset>pmd-rulesets.xml</ruleset>
+            </rulesets>
+          </configuration>
+          <executions>
+            <execution>
+              <id>analyze-pmd</id>
+              <phase>test-compile</phase>
+              <goals>
+                <goal>check</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+
+      </plugins>
+    </pluginManagement>
+
+    <plugins>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+      </plugin>
+
+    </plugins>
+
+    <extensions>
+      <extension>
+        <groupId>com.gkatzioura.maven.cloud</groupId>
+        <artifactId>google-storage-wagon</artifactId>
+        <version>1.7</version>
+      </extension>
+    </extensions>
+
+  </build>
+
+  <profiles>
+    <profile>
+      <id>no-checks</id>
+      <activation>
+        <property>
+          <name>no-checks</name>
+        </property>
+      </activation>
+      <properties>
+        <skip.checks>true</skip.checks>
+      </properties>
+    </profile>
+  </profiles>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>gpnk-snapshot</id>
+      <url>gs://gpnk-sandbox-maven-repo/snapshot</url>
+    </snapshotRepository>
+    <repository>
+      <id>gpnk-release</id>
+      <url>gs://gpnk-sandbox-maven-repo/release</url>
+    </repository>
+  </distributionManagement>
+
+</project>

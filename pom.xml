@@ -7,149 +7,18 @@
     <version>1.0-SNAPSHOT</version>
     <name>gpnk-monkey-aggregator</name>
 
-    <properties>
-        <maven.compiler.target>11</maven.compiler.target>
-        <version.checkstyle>3.1.0</version.checkstyle>
-        <version.spotbugs>3.1.12</version.spotbugs>
-        <version.pmd>6.17.0</version.pmd>
-        <version.pmd.plugin>3.12.0</version.pmd.plugin>
-    </properties>
+    <parent>
+        <groupId>com.gpnk</groupId>
+        <artifactId>parent-pom</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>parent-pom/pom.xml</relativePath>
+    </parent>
 
     <modules>
+        <module>static-analysis</module>
+        <module>parent-pom</module>
         <module>GoogleWagonTest</module>
         <module>HelloWorldService</module>
     </modules>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>${version.checkstyle}</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.puppycrawl.tools</groupId>
-                        <artifactId>checkstyle</artifactId>
-                        <version>8.23</version>
-                    </dependency>
-                </dependencies>
-                <configuration>
-                    <configLocation>static-analysis/gpnk-checkstyle.xml</configLocation>
-                    <failsOnError>true</failsOnError>
-                    <encoding>UTF-8</encoding>
-                    <consoleOutput>true</consoleOutput>
-                    <excludes>**/models/**</excludes>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>verify-style</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>com.github.spotbugs</groupId>
-                <!-- FindBugs successor that works with Java 11 -->
-                <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>${version.spotbugs}</version>
-                <dependencies>
-                    <!-- overwrite dependency on spotbugs if you want to specify the version of spotbugs -->
-                    <dependency>
-                        <groupId>com.github.spotbugs</groupId>
-                        <artifactId>spotbugs</artifactId>
-                        <version>4.0.0-beta3</version>
-                    </dependency>
-                </dependencies>
-                <configuration>
-                    <failOnError>true</failOnError>
-                    <effort>Max</effort>
-                    <threshold>Med</threshold>
-                    <excludeFilterFile>${project.basedir}/../static-analysis/spotbugs-exclude.xml</excludeFilterFile>
-                    <xmlOutput>true</xmlOutput>
-                    <includeTests>true</includeTests>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>analyze-spotbugs</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <version>${version.pmd.plugin}</version>
-                <dependencies>
-                    <!-- Use the latest version of pmd libraries -->
-                    <dependency>
-                        <groupId>net.sourceforge.pmd</groupId>
-                        <artifactId>pmd-core</artifactId>
-                        <version>${version.pmd}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>net.sourceforge.pmd</groupId>
-                        <artifactId>pmd-java</artifactId>
-                        <version>${version.pmd}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>net.sourceforge.pmd</groupId>
-                        <artifactId>pmd-javascript</artifactId>
-                        <version>${version.pmd}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>net.sourceforge.pmd</groupId>
-                        <artifactId>pmd-jsp</artifactId>
-                        <version>${version.pmd}</version>
-                    </dependency>
-                </dependencies>
-                <configuration>
-                    <targetJdk>${maven.compiler.target}</targetJdk>
-                    <failOnViolation>true</failOnViolation>
-                    <sourceEncoding>UTF-8</sourceEncoding>
-                    <linkXRef>false</linkXRef>
-                    <verbose>true</verbose>
-                    <rulesets>
-                        <ruleset>${project.basedir}/../static-analysis/pmd-rulesets.xml</ruleset>
-                    </rulesets>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>analyze-pmd</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-
-        <extensions>
-            <extension>
-                <groupId>com.gkatzioura.maven.cloud</groupId>
-                <artifactId>google-storage-wagon</artifactId>
-                <version>1.7</version>
-            </extension>
-        </extensions>
-    </build>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>gpnk-snapshot</id>
-            <url>gs://gpnk-sandbox-maven-repo/snapshot</url>
-        </snapshotRepository>
-        <repository>
-            <id>gpnk-release</id>
-            <url>gs://gpnk-sandbox-maven-repo/release</url>
-        </repository>
-    </distributionManagement>
 
 </project>
