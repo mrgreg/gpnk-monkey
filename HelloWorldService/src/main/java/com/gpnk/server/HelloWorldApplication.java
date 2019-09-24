@@ -91,7 +91,6 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
         // default modules
         modules.add(new CommonModule());
         modules.add(new SangriaSlf4jModule());
-
         // configured modules
         List<String> moduleClassNames = configuration.getModules();
         moduleClassNames.forEach(moduleName -> {
