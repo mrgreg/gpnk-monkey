@@ -102,7 +102,9 @@
       <property name="tokens" value="METHOD_DEF"/>
       <property name="ignoreMethodNamesRegex" value="^main$"/>
     </module>
-    <module name="JavadocType"/>
+    <module name="JavadocType">
+      <property name="allowMissingParamTags" value="true"/>
+    </module>
     <module name="MissingJavadocMethod"/>
     <module name="JavadocParagraph">
       <property name="allowNewlineParagraph" value="true"/>

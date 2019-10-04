@@ -3,6 +3,7 @@ package com.gpnk.server;
 import com.gpnk.common.CommonModule;
 import com.gpnk.common.Resource;
 import com.gpnk.models.HelloWorldConfiguration;
+import com.gpnk.server.config.dropwizard.HoconConfigurationFactoryFactory;
 
 import com.codahale.metrics.health.HealthCheck;
 import com.google.inject.Guice;
@@ -69,11 +70,13 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 
     /**
      * Initialize the app.
+     * Uses TypeSafe config for loading DropWizard's config by setting the
+     * {@code ConfigurationFactoryFactory} to {@code HoconConfigurationFactoryFactory}.
      * @param bootstrap - DropWizard's bootstrap class.
      */
     @Override
     public void initialize(final Bootstrap<HelloWorldConfiguration> bootstrap) {
-        // nothing yet
+        bootstrap.setConfigurationFactoryFactory(new HoconConfigurationFactoryFactory<>());
     }
 
     /**
