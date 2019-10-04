@@ -71,7 +71,7 @@ The default value of `-XX:ReservedCodeCacheSize=240m` seems fine and does not co
 - CheckStyle is executed via `maven-checkstyle-plugin` in Maven's `validate` phase.
   - CheckStyle can be run via `mvn checkstyle:check` command.  
   
-Our CheckStyle rules are configured in the `static-analysis/gpnk-checkstyle.xml` file. 
+Our CheckStyle rules are configured in the `static-analysis/src/main/resources/gpnk-checkstyle.xml` file. 
 
 Our CheckStyle configuration requires that Java imports are arranged in an alphabetical order in the following 
 groups:
@@ -134,7 +134,7 @@ In particular [this page](https://spotbugs.readthedocs.io/en/latest/bugDescripti
   - Running `mvn spotbugs:gui` launches a graphical interface for examining SpotBugs errors. 
  
 Our SpotBug exclude filters (both global and class-specific) are specified in the 
-`static-analysis/spotbugs-exclude.xml` file. 
+`static-analysis/src/main/resources/spotbugs-exclude.xml` file. 
  
 #### PMD
 
@@ -144,4 +144,4 @@ In particular, [this page](https://pmd.github.io/latest/pmd_rules_java.html) lis
 - PMD is executed via `pmd-maven-plugin` in Maven's `test-compile` phase.
     - PMD can be run via `mvn pmd:check` command.
     
-PMD's rules are configured in the `static-analysis/pmd-rulesets.xml` file.    
+PMD's rules are configured in the `static-analysis/src/main/resources/pmd-rulesets.xml` file.    
