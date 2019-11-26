@@ -42,6 +42,24 @@ Greg will need to grant appropriate permissions in our gcloud account [GPNK-sand
 * Run `gcloud auth application-default login`
 * Run `mvn clean deploy` to verify it works
 
+### Setup Postgres
+
+To install Postgres locally follow instructions [here](https://linux4one.com/how-to-install-postgresql-on-linux-mint-19/)
+
+Setup the password for the default `postgres` user:
+* Login to postgres:
+  * `sudo su - postgres`    
+  * `psql`
+* Change the password for user `postgres`: 
+  * `ALTER USER postgres PASSWORD 'postgres'`
+  * `\q`
+* Edit the following line in `pg_hba.conf` (/etc/postgresql/<postgres-version>/main/pg_hba.conf):
+  * `local   all             postgres                                peer`
+  * change the `peer` to `md5`
+* Restart the Postgres server:
+  * `sudo service postgresql restart`
+* Now you should be able to login into the Postgres server with `psql -U postgres` and `postgres` as the password.
+    
 ### IntelliJ plugins
 
 * Lombok
