@@ -15,12 +15,14 @@ public abstract class GPNKModule extends AbstractModule {
     private Multibinder<Resource> resourceBinder;
     private Multibinder<AdminResource> adminResourceBinder;
     private Multibinder<HealthCheck> healthCheckBinder;
+    private Multibinder<ApplicationStartupHook> startupHookBinder;
 
     @Override
     protected final void configure() {
         resourceBinder = Multibinder.newSetBinder(binder(), Resource.class);
         adminResourceBinder = Multibinder.newSetBinder(binder(), AdminResource.class);
         healthCheckBinder = Multibinder.newSetBinder(binder(), HealthCheck.class);
+        startupHookBinder = Multibinder.newSetBinder(binder(), ApplicationStartupHook.class);
         config();
     }
 
@@ -47,5 +49,12 @@ public abstract class GPNKModule extends AbstractModule {
      */
     protected void bindHealthCheck(final Class<? extends HealthCheck> healthCheckClass) {
         healthCheckBinder.addBinding().to(healthCheckClass);
+    }
+
+    /**
+     * Binds an ApplicationStartupHook which will be run on application startup
+     */
+    protected void bindStartupHook(final Class<? extends ApplicationStartupHook> startupHookClass) {
+        startupHookBinder.addBinding().to(startupHookClass);
     }
 }
