@@ -1,5 +1,6 @@
 package com.gpnk.server;
 
+import com.gpnk.common.ApplicationStartupHook;
 import com.gpnk.common.CommonModule;
 import com.gpnk.common.Resource;
 import com.gpnk.models.HelloWorldConfiguration;
@@ -142,6 +143,13 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
         // For more details: https://www.javaguides.net/2018/06/jersey-rest-logging-using-loggingfeature.html
         environment.jersey().register(new LoggingFeature(java.util.logging.Logger.getLogger(LoggingFeature.DEFAULT_LOGGER_NAME),
                 Level.INFO, LoggingFeature.Verbosity.HEADERS_ONLY, 10000));
+
+        // get all the bound ApplicationStartupHooks, and run them
+        Set<ApplicationStartupHook> hooks = injector.getInstance(Key.get(new TypeLiteral<Set<ApplicationStartupHook>>() { }));
+        hooks.forEach(hook ->  {
+            log.info("Running startup hook: " + hook.getClass().getName());
+            hook.onStartup();
+        });
 
     }
 }

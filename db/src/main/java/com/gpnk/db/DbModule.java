@@ -1,12 +1,18 @@
 package com.gpnk.db;
 
-import com.google.inject.AbstractModule;
+import com.gpnk.common.GPNKModule;
+
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 
 import javax.sql.DataSource;
 
-public class DbModule extends AbstractModule {
+public class DbModule extends GPNKModule {
+
+    @Override
+    protected void config() {
+        bindStartupHook(FlywayStartupHook.class);
+    }
 
     /**
      * @return Provides the Database Config.
