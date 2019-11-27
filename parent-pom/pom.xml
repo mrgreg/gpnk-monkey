@@ -41,6 +41,8 @@
     <version.assertj>3.13.2</version.assertj>
     <version.jackson-hocon>1.1.0</version.jackson-hocon>
     <version.jackson>2.9.10</version.jackson>
+    <version.hikaricp>3.4.1</version.hikaricp>
+    <version.postgresql>42.2.8</version.postgresql>
 
   </properties>
 
@@ -100,6 +102,17 @@
         <version>${version.jackson}</version>
       </dependency>
 
+      <dependency>
+        <groupId>com.zaxxer</groupId>
+        <artifactId>HikariCP</artifactId>
+        <version>${version.hikaricp}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>${version.postgresql}</version>
+      </dependency>
 
       <dependency>
         <groupId>junit</groupId>
