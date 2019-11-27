@@ -18,6 +18,19 @@
   <dependencies>
 
     <dependency>
+      <groupId>com.gpnk</groupId>
+      <artifactId>config</artifactId>
+      <version>${version.gpnk}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.gpnk</groupId>
+      <artifactId>db</artifactId>
+      <version>${version.gpnk}</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <dependency>
       <groupId>io.dropwizard</groupId>
       <artifactId>dropwizard-core</artifactId>
     </dependency>
@@ -35,11 +48,6 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>com.typesafe</groupId>
-      <artifactId>config</artifactId>
     </dependency>
 
     <dependency>

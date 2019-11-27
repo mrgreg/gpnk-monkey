@@ -17,6 +17,8 @@
     <modules>
         <module>static-analysis</module>
         <module>parent-pom</module>
+        <module>config</module>
+        <module>db</module>
         <module>GoogleWagonTest</module>
         <module>HelloWorldService</module>
     </modules>
