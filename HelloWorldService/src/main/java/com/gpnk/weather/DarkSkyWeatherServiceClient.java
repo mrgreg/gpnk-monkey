@@ -3,6 +3,7 @@ package com.gpnk.weather;
 import com.gpnk.models.Location;
 import com.gpnk.models.WeatherReport;
 
+import com.codahale.metrics.health.HealthCheck;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import org.slf4j.Logger;
@@ -52,5 +53,29 @@ public class DarkSkyWeatherServiceClient implements WeatherServiceClient {
         // Re: PMD.CloseResource - response is closed within the readEntity method.
         WeatherReport weatherReport = response.readEntity(WeatherReport.class);
         return Optional.of(weatherReport);
+    }
+
+    @Override
+    public HealthCheck.Result getHealth() {
+
+        try {
+            Optional<WeatherReport> weatherReportOpt = getWeatherForLocation(new Location("90210", 34.103d, -118.4105d));
+            if (weatherReportOpt.isPresent()) {
+
+                WeatherReport weatherReport = weatherReportOpt.get();
+                return HealthCheck.Result.builder()
+                        .healthy()
+                        .withMessage("The Weather in Beverly Hills is:")
+                        .withDetail("temp", weatherReport.getTemp())
+                        .withDetail("sky", weatherReport.getSkyCondition())
+                        .build();
+
+
+            } else {
+                return HealthCheck.Result.unhealthy("Got no result for 90210");
+            }
+        } catch (Exception e) {
+            return HealthCheck.Result.unhealthy(e);
+        }
     }
 }

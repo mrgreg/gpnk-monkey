@@ -2,6 +2,7 @@ package com.gpnk.server;
 
 import com.gpnk.common.ApplicationStartupHook;
 import com.gpnk.common.CommonModule;
+import com.gpnk.common.HealthCheckable;
 import com.gpnk.common.Resource;
 import com.gpnk.models.HelloWorldConfiguration;
 import com.gpnk.server.config.dropwizard.HoconConfigurationFactoryFactory;
@@ -34,23 +35,6 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
     private final Logger log = LoggerFactory.getLogger(HelloWorldApplication.class);
 
     // Created using this as a reference: https://www.dropwizard.io/1.3.13/docs/getting-started.html
-
-    // Code based TODOs:
-    // TODO: testing frameworks (unit and integration against docker images)
-    // TODO: db connectivity / DAO patterns
-    // TODO: flyway
-    // TODO: jooq (worth looking into JDBI?)
-    // TODO: gRPC (both server side and generate client modules)
-    // TODO: version resource (on admin port?)
-    // TODO: swagger doc generation and hosting
-    // TODO: make Configuration generic, but also allow per application settings
-    // TODO: register AdminResources
-
-
-    // Build based TODOs:
-    // TODO: build assembly (docker image, not shaded jar?)
-    // TODO: code static analysis tools (checkstyle, etc.)
-    // TODO: build static analysis tools (dependency version checking, etc.)
 
     /**
      * Main method for the Application.
@@ -127,12 +111,12 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 //            log.info("Registering Admin Resource: " + resource.getClass().getName());
 //        });
 
-        // get all the bound HealthChecks and register them
-        Set<HealthCheck> healthChecks = injector.getInstance(Key.get(new TypeLiteral<Set<HealthCheck>>() { }));
-        healthChecks.forEach(healthCheck -> {
-            String healthCheckName = healthCheck.getClass().getSimpleName();
-            environment.healthChecks().register(healthCheckName, healthCheck);
-            log.info("Registering HealthCheck: " + healthCheckName);
+        // get all the bound HealthCheckables and register them
+        Set<HealthCheckable> healthCheckables = injector.getInstance(Key.get(new TypeLiteral<Set<HealthCheckable>>() { }));
+        healthCheckables.forEach(healthCheckable -> {
+            String healthCheckName = healthCheckable.getClass().getSimpleName();
+            environment.healthChecks().register(healthCheckName, new HealthCheckableBridge(healthCheckable));
+            log.info("Registering HealthCheckable: " + healthCheckName);
         });
 
         // Enable logging of REST requests and responses on the server
@@ -151,5 +135,22 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
             hook.onStartup();
         });
 
+    }
+
+    /**
+     * Used to bridge our HealthCheckable interface and codahale's HealthCheck abstract class
+     */
+    static class HealthCheckableBridge extends HealthCheck {
+
+        private final HealthCheckable component;
+
+        private HealthCheckableBridge(final HealthCheckable component) {
+            this.component = component;
+        }
+
+        @Override
+        protected Result check() throws Exception {
+            return component.getHealth();
+        }
     }
 }

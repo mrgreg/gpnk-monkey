@@ -12,6 +12,7 @@ public class WeatherModule extends GPNKModule {
     @Override
     protected void config() {
         bind(WeatherServiceClient.class).to(DarkSkyWeatherServiceClient.class);
+        bindHealthCheckable(DarkSkyWeatherServiceClient.class);
     }
 
     /**

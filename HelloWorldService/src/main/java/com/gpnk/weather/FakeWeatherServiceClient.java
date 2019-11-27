@@ -3,6 +3,8 @@ package com.gpnk.weather;
 import com.gpnk.models.Location;
 import com.gpnk.models.WeatherReport;
 
+import com.codahale.metrics.health.HealthCheck;
+
 import java.util.Optional;
 
 /**
@@ -20,4 +22,8 @@ public class FakeWeatherServiceClient implements WeatherServiceClient {
         return Optional.empty();
     }
 
+    @Override
+    public HealthCheck.Result getHealth() {
+        return HealthCheck.Result.healthy();
+    }
 }
