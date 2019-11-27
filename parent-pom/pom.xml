@@ -21,6 +21,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <skip.checks>false</skip.checks>
+    <skip.codegen>true</skip.codegen>
 
     <version.gpnk>${project.version}</version.gpnk>
 
@@ -44,6 +45,7 @@
     <version.hikaricp>3.4.1</version.hikaricp>
     <version.postgresql>42.2.8</version.postgresql>
     <version.flyway>6.0.8</version.flyway>
+    <version.jooq>3.12.3</version.jooq>
 
   </properties>
 
@@ -119,6 +121,12 @@
         <groupId>org.flywaydb</groupId>
         <artifactId>flyway-core</artifactId>
         <version>${version.flyway}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.jooq</groupId>
+        <artifactId>jooq</artifactId>
+        <version>${version.jooq}</version>
       </dependency>
 
       <dependency>
@@ -275,6 +283,56 @@
           </executions>
         </plugin>
 
+        <plugin>
+
+          <groupId>org.jooq</groupId>
+          <artifactId>jooq-codegen-maven</artifactId>
+          <version>${version.jooq}</version>
+
+          <!-- The plugin should hook into the generate goal -->
+          <executions>
+            <execution>
+              <goals>
+                <goal>generate</goal>
+              </goals>
+            </execution>
+          </executions>
+
+          <!-- Manage the plugin's dependency. In this example, we'll use a PostgreSQL database -->
+          <dependencies>
+            <dependency>
+              <groupId>org.postgresql</groupId>
+              <artifactId>postgresql</artifactId>
+              <version>${version.postgresql}</version>
+            </dependency>
+          </dependencies>
+
+          <!-- Specify the plugin configuration.
+               The configuration format is the same as for the standalone code generator -->
+          <configuration>
+            <skip>${skip.codegen}</skip>
+
+            <!-- JDBC connection parameters defined in child poms -->
+
+            <!-- Generator parameters -->
+            <generator>
+              <database>
+                <name>org.jooq.meta.postgres.PostgresDatabase</name>
+                <includes>.*</includes>
+                <excludes>flyway_schema_history</excludes>
+                <!-- In case your database supports catalogs, e.g. SQL Server:
+                <inputCatalog>public</inputCatalog>
+                  -->
+                <inputSchema>public</inputSchema>
+              </database>
+              <target>
+                <packageName>com.gpnk.generated.jooq</packageName>
+                <directory>src/generated/java</directory>
+              </target>
+            </generator>
+          </configuration>
+        </plugin>
+
       </plugins>
     </pluginManagement>
 
@@ -317,6 +375,18 @@
       </activation>
       <properties>
         <skip.checks>true</skip.checks>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>codegen</id>
+      <activation>
+        <property>
+          <name>codegen</name>
+        </property>
+      </activation>
+      <properties>
+        <skip.codegen>false</skip.codegen>
       </properties>
     </profile>
   </profiles>
