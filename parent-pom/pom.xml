@@ -43,6 +43,7 @@
     <version.jackson>2.9.10</version.jackson>
     <version.hikaricp>3.4.1</version.hikaricp>
     <version.postgresql>42.2.8</version.postgresql>
+    <version.flyway>6.0.8</version.flyway>
 
   </properties>
 
@@ -112,6 +113,12 @@
         <groupId>org.postgresql</groupId>
         <artifactId>postgresql</artifactId>
         <version>${version.postgresql}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.flywaydb</groupId>
+        <artifactId>flyway-core</artifactId>
+        <version>${version.flyway}</version>
       </dependency>
 
       <dependency>
