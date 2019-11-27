@@ -1,5 +1,6 @@
 package com.gpnk.weather;
 
+import com.gpnk.common.HealthCheckable;
 import com.gpnk.models.Location;
 import com.gpnk.models.WeatherReport;
 
@@ -9,7 +10,7 @@ import java.util.Optional;
  * A client for looking up the Weather
  * // TODO: turn this into a core service and use gRPC to call it
  */
-public interface WeatherServiceClient {
+public interface WeatherServiceClient extends HealthCheckable {
 
     /**
      * Gets the current weather for a given zipcode

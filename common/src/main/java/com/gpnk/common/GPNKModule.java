@@ -1,6 +1,5 @@
 package com.gpnk.common;
 
-import com.codahale.metrics.health.HealthCheck;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
 
@@ -14,14 +13,14 @@ public abstract class GPNKModule extends AbstractModule {
 
     private Multibinder<Resource> resourceBinder;
     private Multibinder<AdminResource> adminResourceBinder;
-    private Multibinder<HealthCheck> healthCheckBinder;
+    private Multibinder<HealthCheckable> healthCheckableBinder;
     private Multibinder<ApplicationStartupHook> startupHookBinder;
 
     @Override
     protected final void configure() {
         resourceBinder = Multibinder.newSetBinder(binder(), Resource.class);
         adminResourceBinder = Multibinder.newSetBinder(binder(), AdminResource.class);
-        healthCheckBinder = Multibinder.newSetBinder(binder(), HealthCheck.class);
+        healthCheckableBinder = Multibinder.newSetBinder(binder(), HealthCheckable.class);
         startupHookBinder = Multibinder.newSetBinder(binder(), ApplicationStartupHook.class);
         config();
     }
@@ -47,8 +46,8 @@ public abstract class GPNKModule extends AbstractModule {
     /**
      * Binds a HealthCheck so it will get registered with DropWizard
      */
-    protected void bindHealthCheck(final Class<? extends HealthCheck> healthCheckClass) {
-        healthCheckBinder.addBinding().to(healthCheckClass);
+    protected void bindHealthCheckable(final Class<? extends HealthCheckable> healthCheckableClass) {
+        healthCheckableBinder.addBinding().to(healthCheckableClass);
     }
 
     /**

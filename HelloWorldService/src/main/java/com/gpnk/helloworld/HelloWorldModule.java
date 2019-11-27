@@ -28,6 +28,8 @@ public class HelloWorldModule extends GPNKModule {
         bind(UserDAO.class).to(FakeUserDAO.class);
         bind(LocationDAO.class).to(FakeLocationDAO.class);
 
+        bindHealthCheckable(FakeUserDAO.class);
+
         bindResource(HelloWorldResource.class);
     }
 }
