@@ -2,6 +2,8 @@ package com.gpnk.persistence;
 
 import com.gpnk.models.Location;
 
+import java.util.Optional;
+
 /**
  * A DAO for location info
  */
@@ -9,6 +11,7 @@ public interface LocationDAO {
 
     /**
      * Looks up a location by zipcode
+     * @return
      */
-    Location getLocationByZip(String zipCode);
+    Optional<Location> getLocationByZip(String zipCode);
 }

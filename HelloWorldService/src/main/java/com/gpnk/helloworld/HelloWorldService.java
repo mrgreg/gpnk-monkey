@@ -42,9 +42,9 @@ public class HelloWorldService {
             return Optional.empty();
         }
 
-        Location location = locationDAO.getLocationByZip(user.get().getZipCode());
+        Optional<Location> location = locationDAO.getLocationByZip(user.get().getZipCode());
 
-        return weatherServiceClient.getWeatherForLocation(location);
+        return location.map(weatherServiceClient::getWeatherForLocation).get();
     }
 
     /**

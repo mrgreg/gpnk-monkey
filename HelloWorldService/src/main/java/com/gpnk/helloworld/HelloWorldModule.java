@@ -2,10 +2,10 @@ package com.gpnk.helloworld;
 
 import com.gpnk.common.GPNKModule;
 import com.gpnk.config.HelloWorldProperties;
-import com.gpnk.persistence.FakeLocationDAO;
-import com.gpnk.persistence.FakeUserDAO;
 import com.gpnk.persistence.LocationDAO;
+import com.gpnk.persistence.LocationDAOImpl;
 import com.gpnk.persistence.UserDAO;
+import com.gpnk.persistence.UserDAOImpl;
 
 import com.google.inject.name.Names;
 
@@ -25,10 +25,11 @@ public class HelloWorldModule extends GPNKModule {
         bind(String.class).annotatedWith(Names.named("weatherTemplate")).toInstance(config.getWeatherTemplate());
         bind(String.class).annotatedWith(Names.named("defaultName")).toInstance(config.getDefaultName());
 
-        bind(UserDAO.class).to(FakeUserDAO.class);
-        bind(LocationDAO.class).to(FakeLocationDAO.class);
+        bind(UserDAO.class).to(UserDAOImpl.class);
+        bind(LocationDAO.class).to(LocationDAOImpl.class);
 
-        bindHealthCheckable(FakeUserDAO.class);
+        bindHealthCheckable(UserDAOImpl.class);
+        bindHealthCheckable(LocationDAOImpl.class);
 
         bindResource(HelloWorldResource.class);
     }

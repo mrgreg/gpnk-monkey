@@ -6,11 +6,16 @@ import com.typesafe.config.Config;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.Getter;
+import org.jooq.DSLContext;
+import org.jooq.SQLDialect;
+import org.jooq.impl.DSL;
 
 public class DbConfig {
 
     @Getter
     private HikariDataSource dataSource;
+    @Getter
+    private DSLContext dslContext;
 
     protected DbConfig() {
         Config config = ConfigUtil.load();
@@ -20,11 +25,11 @@ public class DbConfig {
 
     private void setupDataSource(Config dbConfig) {
 
-        String subprotocol = dbConfig.getString("subprotocol");
+        String subprotocol = "postgresql";
         String dbHost = dbConfig.getString("host");
         int dbPort = dbConfig.getInt("port");
         String schema = dbConfig.getString("schema");
-        String driverClassName = dbConfig.getString("driverClassName");
+        String driverClassName = "org.postgresql.Driver";
         String dbUsername = dbConfig.getString("username");
         String dbPassword = dbConfig.getString("password");
         boolean autoCommit = dbConfig.getBoolean("autoCommit");
@@ -43,7 +48,9 @@ public class DbConfig {
 //        hikariConfig.addDataSourceProperty( "prepStmtCacheSqlLimit" , "2048" );
 
         this.dataSource = new HikariDataSource(hikariConfig);
-        // TODO: add DSLContext and Dialect
+
+        SQLDialect dialect = SQLDialect.POSTGRES;
+        this.dslContext = DSL.using(dataSource, dialect);
     }
 
 }
