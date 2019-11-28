@@ -27,7 +27,6 @@
       <groupId>com.gpnk</groupId>
       <artifactId>db</artifactId>
       <version>${version.gpnk}</version>
-      <scope>runtime</scope>
     </dependency>
 
     <dependency>
@@ -120,6 +119,11 @@
 
         </configuration>
 
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
       </plugin>
 
     </plugins>

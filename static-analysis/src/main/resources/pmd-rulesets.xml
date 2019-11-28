@@ -29,6 +29,12 @@
     <exclude name="AvoidDuplicateLiterals"/>
     <!--  Special config for this rule below  -->
     <exclude name="DataflowAnomalyAnalysis"/>
+    <!-- We use JOOQ.  In jOOQ, resources are closed after consumption, by default. -->
+    <!-- https://www.jooq.org/doc/3.12/manual/sql-execution/comparison-with-jdbc/ -->
+    <!-- This rule, however, results in a false positive on JOOQ's Selects. -->
+    <!-- Since one can not exclude a parent class from this rule, there would be too many specific -->
+    <!-- JOOQ's Select subclasses to exclude. Therefore, removing the rule. -->
+    <exclude name="CloseResource"/>
   </rule>
 
   <!-- Ignore the "Found 'UR'-anomaly for variable..." part of the rule, as it triggers for lambdas -->

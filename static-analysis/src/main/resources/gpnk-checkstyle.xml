@@ -265,7 +265,9 @@
     <!-- Checks for class design                         -->
     <!-- See https://checkstyle.org/config_design.html -->
     <module name="InterfaceIsType"/>
-    <module name="VisibilityModifier"/>
+    <module name="VisibilityModifier">
+      <property name="protectedAllowed" value="true"/>
+    </module>
     <module name="OneTopLevelClass"/>
     <module name="IllegalTokenText">
       <property name="tokens" value="STRING_LITERAL, CHAR_LITERAL"/>

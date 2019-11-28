@@ -121,7 +121,7 @@ imports on import optimizations)
 #### SpotBugs vs PMD? Do we need both?
 
 SpotBugs and PMD are considered complementary tools. While there is a small overlap in the set of problems the two tools 
-detect (for example, both tools complain about the use of `System.ext()`), they largely find different problems via 
+detect (for example, both tools complain about the use of `System.exit()`), they largely find different problems via 
 different types of static analysis. 
 
 PMD analyzes Java source code for problems like the following, to name a few examples:

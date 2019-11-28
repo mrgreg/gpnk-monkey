@@ -9,10 +9,9 @@
     <Bug pattern="DM_EXIT"/>
   </Match>
 
+  <!--  SpotBugs erroneously flags this error for try-with-resources in JDK11 (possibly limited to OpenJDK): -->
+  <!-- https://github.com/spotbugs/spotbugs/issues/756 -->
   <Match>
-    <!-- In the getWeatherForLocation() method, the try-with-resources probably is checking response for being null-->
-    <!-- before calling the close() method on it, which triggers this error. Ignore it here, but keep the rule.-->
-    <Class name="com.gpnk.weather.DarkSkyWeatherServiceClient"/>
     <Bug pattern="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE"/>
   </Match>
 
