@@ -4,7 +4,7 @@ import com.typesafe.config.Config;
 import lombok.Getter;
 
 /**
- * Configuration properties for HelloWorld which are loaded from application.conf.
+ * Configuration properties for HelloWorld which are loaded from {@code application.conf}.
  */
 public class HelloWorldProperties {
 
@@ -16,7 +16,7 @@ public class HelloWorldProperties {
     private String weatherTemplate;
 
     /**
-     * Loads properties from application.conf.
+     * Loads properties from {@code application.conf}.
      */
     public HelloWorldProperties() {
         Config config = ConfigUtil.load();
