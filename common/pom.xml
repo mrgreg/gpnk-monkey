@@ -47,6 +47,11 @@
       <artifactId>dropwizard-core</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>com.palominolabs.metrics</groupId>
+      <artifactId>metrics-guice</artifactId>
+    </dependency>
+
   </dependencies>
 
 </project>

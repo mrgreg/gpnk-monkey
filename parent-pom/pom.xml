@@ -47,6 +47,7 @@
     <version.postgresql>42.2.8</version.postgresql>
     <version.flyway>6.0.8</version.flyway>
     <version.jooq>3.12.3</version.jooq>
+    <version.metrics-guice>3.2.2</version.metrics-guice>
 
   </properties>
 
@@ -128,6 +129,22 @@
         <groupId>org.jooq</groupId>
         <artifactId>jooq</artifactId>
         <version>${version.jooq}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.palominolabs.metrics</groupId>
+        <artifactId>metrics-guice</artifactId>
+        <version>${version.metrics-guice}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>io.dropwizard.metrics</groupId>
+            <artifactId>metrics-annotation</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
 
       <dependency>

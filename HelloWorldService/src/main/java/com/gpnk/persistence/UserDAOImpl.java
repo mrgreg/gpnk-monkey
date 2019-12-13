@@ -5,6 +5,7 @@ import com.gpnk.generated.jooq.Tables;
 import com.gpnk.generated.jooq.tables.records.UsersRecord;
 import com.gpnk.models.User;
 
+import com.codahale.metrics.annotation.Timed;
 import com.google.inject.Inject;
 import org.jooq.DSLContext;
 import org.jooq.Record;
@@ -31,6 +32,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
     }
 
     @Override
+    @Timed
     public Optional<User> getUserByName(String name) {
         SelectConditionStep results = getUserByNameQuery(name);
         Record userRecord = results.fetchOne();
@@ -42,6 +44,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
     }
 
     @Override
+    @Timed
     public void createUser(User user) {
         if (userExistsByName(user.getName())) {
             throw new UserAlreadyExistsException("User " + user.getName() + " already exists");
