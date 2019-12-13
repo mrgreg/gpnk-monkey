@@ -20,8 +20,8 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
 /**
- * A {code ConfigurationFactory} subclass which parses DropWizard config from HOCON
- * application.conf file instead of a conventional yml file.
+ * A {@code ConfigurationFactory} subclass which parses DropWizard config from HOCON
+ * {@code application.conf} file instead of a conventional yml file.
  */
 public class HoconConfigurationFactory<T> implements ConfigurationFactory<T> {
 

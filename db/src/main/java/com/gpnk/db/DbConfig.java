@@ -40,7 +40,6 @@ public class DbConfig {
         hikariConfig.setUsername(dbUsername);
         hikariConfig.setPassword(dbPassword);
         hikariConfig.setAutoCommit(autoCommit);
-        //TODO: possibly add codahale healthCheck and metrics to the datasource
 
         // TODO: we may want to tune up the Connection pool in the future
 //        hikariConfig.addDataSourceProperty( "cachePrepStmts" , "true" );

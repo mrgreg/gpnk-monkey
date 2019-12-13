@@ -21,7 +21,7 @@ public class HelloWorldConfiguration extends Configuration {
     private String name;
 
     /**
-     * Loads TypeSafe config from reference.conf and application.conf files.
+     * Loads TypeSafe config from {@code reference.conf} and {@code application.conf} files.
      */
     public HelloWorldConfiguration() {
         Config config = ConfigUtil.load();

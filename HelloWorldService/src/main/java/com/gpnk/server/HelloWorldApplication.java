@@ -28,13 +28,12 @@ import java.util.logging.Level;
 
 /**
  * Our sample Application class.
+ * Created using this as a reference: https://www.dropwizard.io/1.3.13/docs/getting-started.html
  */
 public class HelloWorldApplication extends Application<HelloWorldConfiguration> {
 
     // the one logger we can't get via injection
     private final Logger log = LoggerFactory.getLogger(HelloWorldApplication.class);
-
-    // Created using this as a reference: https://www.dropwizard.io/1.3.13/docs/getting-started.html
 
     /**
      * Main method for the Application.
