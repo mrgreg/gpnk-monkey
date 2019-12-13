@@ -4,6 +4,7 @@ import com.gpnk.db.BaseDAO;
 import com.gpnk.generated.jooq.Tables;
 import com.gpnk.models.Location;
 
+import com.codahale.metrics.annotation.Timed;
 import com.google.inject.Inject;
 import org.jooq.DSLContext;
 import org.jooq.Record;
@@ -30,6 +31,7 @@ public class LocationDAOImpl extends BaseDAO implements LocationDAO {
     }
 
     @Override
+    @Timed
     public Optional<Location> getLocationByZip(String zipCode) {
 
         SelectConditionStep results = getLocationByZipQuery(zipCode);

@@ -3,6 +3,7 @@ package com.gpnk.server;
 import com.gpnk.common.ApplicationStartupHook;
 import com.gpnk.common.CommonModule;
 import com.gpnk.common.HealthCheckable;
+import com.gpnk.common.MetricsModule;
 import com.gpnk.common.Resource;
 import com.gpnk.models.HelloWorldConfiguration;
 import com.gpnk.server.config.dropwizard.HoconConfigurationFactoryFactory;
@@ -79,6 +80,9 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
         // default modules
         modules.add(new CommonModule());
         modules.add(new SangriaSlf4jModule());
+        //configure metrics implementation with DropWizard's metric registry
+        modules.add(new MetricsModule(environment.metrics()));
+
         // configured modules
         List<String> moduleClassNames = configuration.getModules();
         moduleClassNames.forEach(moduleName -> {
