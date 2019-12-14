@@ -22,7 +22,8 @@ public class WeatherModule extends GPNKModule {
     @Named("darkSkySecretKey")
     public String getDarkSkySecretKey() {
         // TODO: get this from config
-        // This is the api key for an account I signed up for.  The first 1000 calls per day are free
+        // This is an old api key for an account I signed up for.  It is no longer valid.
+        // Get your own key here: https://darksky.net/dev
         return "1b06b5c498df5d71efac20db9ea91fd6";
     }
 }
