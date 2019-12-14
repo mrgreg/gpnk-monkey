@@ -4,13 +4,13 @@
     <groupId>com.gpnk</groupId>
     <artifactId>gpnk-monkey-aggregator</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.1.0-SNAPSHOT</version>
     <name>gpnk-monkey-aggregator</name>
 
     <parent>
         <groupId>com.gpnk</groupId>
         <artifactId>parent-pom</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>0.1.0-SNAPSHOT</version>
         <relativePath>parent-pom/pom.xml</relativePath>
     </parent>
 
@@ -19,7 +19,6 @@
         <module>parent-pom</module>
         <module>common</module>
         <module>db</module>
-        <module>GoogleWagonTest</module>
         <module>HelloWorldService</module>
     </modules>
 

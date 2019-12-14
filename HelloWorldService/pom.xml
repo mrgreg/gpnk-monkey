@@ -5,14 +5,14 @@
   <parent>
     <groupId>com.gpnk</groupId>
     <artifactId>gpnk-monkey-aggregator</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.1.0-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
   <groupId>com.gpnk</groupId>
   <artifactId>HelloWorldService</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.1.0-SNAPSHOT</version>
   <name>HelloWorldService</name>
 
   <dependencies>

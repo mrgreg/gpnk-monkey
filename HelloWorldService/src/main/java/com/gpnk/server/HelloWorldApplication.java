@@ -31,6 +31,7 @@ import java.util.logging.Level;
  * Our sample Application class.
  * Created using this as a reference: https://www.dropwizard.io/1.3.13/docs/getting-started.html
  */
+// TODO: Move this to common module and make it not specific to HelloWorld example
 public class HelloWorldApplication extends Application<HelloWorldConfiguration> {
 
     // the one logger we can't get via injection
