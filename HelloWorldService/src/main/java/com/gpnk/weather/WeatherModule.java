@@ -1,9 +1,12 @@
 package com.gpnk.weather;
 
 import com.gpnk.common.GPNKModule;
+import com.gpnk.config.ConfigUtil;
 
 import com.google.inject.Provides;
+import com.google.inject.Singleton;
 import com.google.inject.name.Named;
+import com.typesafe.config.Config;
 
 /**
  * Bindings for WeatherServiceClient
@@ -16,14 +19,18 @@ public class WeatherModule extends GPNKModule {
     }
 
     /**
-     * Produces the dark sky secret key
+     * Produces the dark sky secret key.
+     * You can get your own key here: https://darksky.net/dev
      */
+    @Singleton
     @Provides
     @Named("darkSkySecretKey")
     public String getDarkSkySecretKey() {
-        // TODO: get this from config
-        // This is an old api key for an account I signed up for.  It is no longer valid.
-        // Get your own key here: https://darksky.net/dev
-        return "1b06b5c498df5d71efac20db9ea91fd6";
+
+        Config config = ConfigUtil.load();
+        Config weatherConfig = config.getConfig("weather");
+
+        String darkSkyApiKey = weatherConfig.getString("darkSkyApiKey");
+        return darkSkyApiKey;
     }
 }
