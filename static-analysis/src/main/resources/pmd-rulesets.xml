@@ -55,6 +55,7 @@
     <exclude name="SignatureDeclareThrowsException"/>
     <exclude name="AvoidCatchingGenericException"/>
     <exclude name="AvoidThrowingRawExceptionTypes"/>
+    <exclude name="ExcessiveImports"/>
   </rule>
 
   <rule ref="category/java/codestyle.xml/UnnecessaryModifier"/>
