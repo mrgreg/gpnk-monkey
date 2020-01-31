@@ -32,5 +32,7 @@ public class HelloWorldModule extends GPNKModule {
         bindHealthCheckable(LocationDAOImpl.class);
 
         bindResource(HelloWorldResource.class);
+
+        bindAdminResource(SampleAdminResource.class);
     }
 }

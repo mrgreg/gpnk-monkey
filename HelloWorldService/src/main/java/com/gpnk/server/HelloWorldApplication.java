@@ -1,5 +1,6 @@
 package com.gpnk.server;
 
+import com.gpnk.common.AdminResource;
 import com.gpnk.common.ApplicationStartupHook;
 import com.gpnk.common.CommonModule;
 import com.gpnk.common.HealthCheckable;
@@ -16,9 +17,14 @@ import com.google.inject.Module;
 import com.google.inject.TypeLiteral;
 import com.tavianator.sangria.slf4j.SangriaSlf4jModule;
 import io.dropwizard.Application;
+import io.dropwizard.jackson.Jackson;
+import io.dropwizard.jersey.DropwizardResourceConfig;
+import io.dropwizard.jersey.jackson.JacksonMessageBodyProvider;
+import io.dropwizard.jersey.setup.JerseyContainerHolder;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.glassfish.jersey.logging.LoggingFeature;
+import org.glassfish.jersey.servlet.ServletContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,6 +80,13 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
     @Override
     public void run(final HelloWorldConfiguration configuration, final Environment environment) throws Exception {
 
+        // TODO: needs to be a singleton shared within the application; how to best enforce? To be implemented if/when
+        // we customize Jackson object serialization/deserialization.
+        // this Jackson config can be used to customize serialization/deserialization via the object mapper
+        // this singleton object should be used by all entities (resources, servlets, etc.) that need Jackson customization
+        final JacksonMessageBodyProvider jacksonMessageBodyProvider =
+                new JacksonMessageBodyProvider(Jackson.newObjectMapper());
+
         // Build up our guice modules
         List<com.google.inject.Module> modules = new LinkedList<>();
 
@@ -108,12 +121,8 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
         });
 
         // get all of the rest admin resource classes and register them with jersey
-//        Set<AdminResource> adminResources = injector.getInstance(Key.get(new TypeLiteral<Set<AdminResource>>() { }));
-//        adminResources.forEach(resource ->  {
-//            // TODO: figure out how to actually do this
-//            environment.jersey().register(resource);
-//            log.info("Registering Admin Resource: " + resource.getClass().getName());
-//        });
+        Set<AdminResource> adminResources = injector.getInstance(Key.get(new TypeLiteral<Set<AdminResource>>() { }));
+        registerAdminResources(adminResources, environment, jacksonMessageBodyProvider);
 
         // get all the bound HealthCheckables and register them
         Set<HealthCheckable> healthCheckables = injector.getInstance(Key.get(new TypeLiteral<Set<HealthCheckable>>() { }));
@@ -137,6 +146,43 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
         hooks.forEach(hook ->  {
             log.info("Running startup hook: " + hook.getClass().getName());
             hook.onStartup();
+        });
+
+    }
+
+    /**
+     * Insights into this implementation are in the following article:
+     * https://spin.atomicobject.com/2015/03/30/jersey-servlets-dropwizard/
+     *
+     * <p>To register our custom admin resources on Jersey's admin path, we first need to register
+     * a custom servlet in Jersey's admin environment that will then serve up the admin resources endpoints.
+     *
+     * <p>Note that the mapping for the custom servlet then becomes a part of an admin resource's endpoint.
+     * For example, if we map the custom servlet to "/custom/*" in the admin environment and have an admin resource
+     * with a "/sample" path, the admin resource endpoint is: http://localhost:8080/admin/custom/sample
+     *
+     * @param adminResources - Set of Admin Resources to register with custom servlet
+     * @param environment - Jersey's environment
+     * @param jacksonMessageBodyProvider - Jackson's serialization/deserialization settings
+     */
+    private void registerAdminResources(final Set<AdminResource> adminResources, final Environment environment,
+                                        final JacksonMessageBodyProvider jacksonMessageBodyProvider) {
+
+        // create new Jersey servlet
+        DropwizardResourceConfig adminConfig = new DropwizardResourceConfig(environment.metrics());
+        JerseyContainerHolder servletContainerHolder = new JerseyContainerHolder(new ServletContainer(adminConfig));
+
+        // Add the servlet to the dropwizard environment and map it
+        // Custom Admin resources will be at the path: http://localhost:8080/admin/custom/<resource_path>
+        environment.admin().addServlet("Custom Admin Servlet", servletContainerHolder.getContainer()).addMapping("/custom/*");
+
+        // Enable Jackson support
+        adminConfig.register(jacksonMessageBodyProvider);
+
+        // register Admin Resources as endpoints on the servlet
+        adminResources.forEach(adminResource -> {
+            adminConfig.register(adminResource);
+            log.info("Registering Admin Resource: " + adminResource.getClass().getName());
         });
 
     }
