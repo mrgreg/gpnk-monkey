@@ -7,6 +7,8 @@ import com.gpnk.models.WeatherReport;
 import com.codahale.metrics.annotation.Timed;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.slf4j.Logger;
 
 import java.util.Optional;
@@ -55,7 +57,9 @@ public class HelloWorldResource implements Resource {
      */
     @GET
     @Timed
-    public String sayHello(@QueryParam("name") final Optional<String> name) {
+    @Operation(description = "Says hello with the name, if the name is given. Outputs weather forecast for registered users.")
+    public String sayHello(@Parameter(description = "Name of the user", required = false)
+                           @QueryParam("name") final Optional<String> name) {
 
         if (name.isPresent()) {
             log.debug("hello called with user {}", name.get());
@@ -75,7 +79,9 @@ public class HelloWorldResource implements Resource {
     @Path("/user")
     @Consumes(MediaType.APPLICATION_JSON)
     @Timed
-    public void createUser(final User user) {
+    @Operation(description = "Creates a user.")
+    public void createUser(@Parameter(description = "Information about the user: name and zipcode.", required = true)
+                           final User user) {
         helloWorldService.createUser(user);
     }
 }
