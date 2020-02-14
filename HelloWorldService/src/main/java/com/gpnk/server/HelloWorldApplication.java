@@ -10,6 +10,7 @@ import com.gpnk.models.HelloWorldConfiguration;
 import com.gpnk.server.config.dropwizard.HoconConfigurationFactoryFactory;
 
 import com.codahale.metrics.health.HealthCheck;
+import com.google.common.base.Charsets;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Key;
@@ -21,8 +22,10 @@ import io.dropwizard.jackson.Jackson;
 import io.dropwizard.jersey.DropwizardResourceConfig;
 import io.dropwizard.jersey.jackson.JacksonMessageBodyProvider;
 import io.dropwizard.jersey.setup.JerseyContainerHolder;
+import io.dropwizard.servlets.assets.AssetServlet;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.swagger.v3.jaxrs2.integration.OpenApiServlet;
 import org.glassfish.jersey.logging.LoggingFeature;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.slf4j.Logger;
@@ -32,6 +35,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
+
+import javax.servlet.ServletRegistration;
 
 /**
  * Our sample Application class.
@@ -132,6 +137,8 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
             log.info("Registering HealthCheckable: " + healthCheckName);
         });
 
+        registerSwaggerAtAdminPath(environment);
+
         // Enable logging of REST requests and responses on the server
         // TODO: enable logging in a similar way on the REST client
         // Verbosity determines how detailed the logged message is, currently logs headers and text (which is everything);
@@ -185,6 +192,33 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
             log.info("Registering Admin Resource: " + adminResource.getClass().getName());
         });
 
+    }
+
+    /**
+     * Steps to register Swagger UI at admin path:
+     * - Copy the contents of dist/ folder from Swagger UI distribution to resources/swagger
+     * - Register Open API Servlet at admin path
+     * - Register Swagger UI as an AssetServlet to serve static content from resources/swagger at admin path
+     * - Adjust relative paths in swagger/index.html to the path mapped to the Swagger UI servlet
+     * - Voila!
+     *
+     * <p>Note: Current configuration will make ALL endpoints (Resource endpoints, admin endpoints, etc.) available
+     * in Swagger. Execution of the admin endpoints does not work due to path issues.
+     *
+     * @param environment - Jersey's environment
+     */
+    private void registerSwaggerAtAdminPath(final Environment environment) {
+
+        // Add the Open API servlet to the dropwizard admin environment and map it
+        // Open API servlet path: http://localhost:8080/admin/openapi
+        ServletRegistration.Dynamic openApiAdminServlet = environment.admin().addServlet(OpenApiServlet.class.getSimpleName(), new OpenApiServlet());
+        openApiAdminServlet.addMapping("/openapi");
+
+        // Add the Swagger UI servlet to the dropwizard admin environment and map it
+        // Swagger UI path: http://localhost:8080/admin/swagger
+        ServletRegistration.Dynamic swaggerAdminServlet = environment.admin().addServlet("Swagger UI Admin Servlet",
+                new AssetServlet("swagger", "/swagger", "index.html", Charsets.UTF_8));
+        swaggerAdminServlet.addMapping("/swagger", "/swagger/*");
     }
 
     /**
