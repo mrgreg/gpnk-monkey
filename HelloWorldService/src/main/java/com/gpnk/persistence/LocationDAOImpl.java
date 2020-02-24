@@ -30,6 +30,7 @@ public class LocationDAOImpl extends BaseDAO implements LocationDAO {
         return Arrays.asList(Tables.LOCATIONS);
     }
 
+    /** {@inheritDoc} */
     @Override
     @Timed
     public Optional<Location> getLocationByZip(String zipCode) {

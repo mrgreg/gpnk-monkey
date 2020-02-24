@@ -16,6 +16,7 @@ public class FlywayStartupHook implements ApplicationStartupHook {
     @Inject
     private DataSource dataSource;
 
+    /** {@inheritDoc} */
     @Override
     public void onStartup() {
 

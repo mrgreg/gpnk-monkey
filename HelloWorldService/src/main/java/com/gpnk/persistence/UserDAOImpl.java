@@ -31,6 +31,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
         return Arrays.asList(Tables.USERS);
     }
 
+    /** {@inheritDoc} */
     @Override
     @Timed
     public Optional<User> getUserByName(String name) {
@@ -43,6 +44,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
         return Optional.empty();
     }
 
+    /** {@inheritDoc} */
     @Override
     @Timed
     public void createUser(User user) {

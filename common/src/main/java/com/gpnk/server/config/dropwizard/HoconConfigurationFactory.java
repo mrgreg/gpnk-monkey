@@ -43,11 +43,13 @@ public class HoconConfigurationFactory<T> implements ConfigurationFactory<T> {
         this.mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
     }
 
+    /** {@inheritDoc} */
     @Override
     public T build(ConfigurationSourceProvider provider, String path) throws IOException, ConfigurationException {
         return build();
     }
 
+    /** {@inheritDoc} */
     @Override
     public T build() throws IOException, ConfigurationException {
         ConfigObject configTree = ConfigUtil.load().root();
