@@ -12,6 +12,7 @@ import java.util.Optional;
  */
 public class FakeWeatherServiceClient implements WeatherServiceClient {
 
+    /** {@inheritDoc} */
     @Override
     public Optional<WeatherReport> getWeatherForLocation(final Location location) {
 
@@ -22,6 +23,7 @@ public class FakeWeatherServiceClient implements WeatherServiceClient {
         return Optional.empty();
     }
 
+    /** {@inheritDoc} */
     @Override
     public HealthCheck.Result getHealth() {
         return HealthCheck.Result.healthy();

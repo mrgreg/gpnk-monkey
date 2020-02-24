@@ -31,7 +31,7 @@ public class DarkSkyWeatherServiceClient implements WeatherServiceClient {
     @Named("darkSkySecretKey")
     private String secretKey;
 
-
+    /** {@inheritDoc} */
     @SuppressWarnings("PMD.CloseResource")
     @Override
     public Optional<WeatherReport> getWeatherForLocation(final Location location) {
@@ -55,6 +55,7 @@ public class DarkSkyWeatherServiceClient implements WeatherServiceClient {
         return Optional.of(weatherReport);
     }
 
+    /** {@inheritDoc} */
     @Override
     public HealthCheck.Result getHealth() {
 

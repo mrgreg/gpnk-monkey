@@ -31,6 +31,7 @@ public abstract class BaseDAO implements HealthCheckable {
      */
     protected abstract List<TableImpl> getTables();
 
+    /** {@inheritDoc} */
     @SuppressWarnings({"PMD.DataflowAnomalyAnalysis"})
     @Override
     public HealthCheck.Result getHealth() {
