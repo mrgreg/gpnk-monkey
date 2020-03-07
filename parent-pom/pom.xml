@@ -44,7 +44,7 @@
     <version.jackson-hocon>1.1.0</version.jackson-hocon>
     <version.jackson>2.10.3</version.jackson>
     <version.hikaricp>3.4.1</version.hikaricp>
-    <version.postgresql>42.2.8</version.postgresql>
+    <version.postgresql>42.2.10</version.postgresql>
     <version.flyway>6.0.8</version.flyway>
     <version.jooq>3.12.3</version.jooq>
     <version.metrics-guice>3.2.2</version.metrics-guice>
