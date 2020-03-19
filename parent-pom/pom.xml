@@ -335,6 +335,11 @@
             </dependency>
             <dependency>
               <groupId>net.sourceforge.pmd</groupId>
+              <artifactId>pmd-apex</artifactId>
+              <version>${version.pmd}</version>
+            </dependency>
+            <dependency>
+              <groupId>net.sourceforge.pmd</groupId>
               <artifactId>pmd-java</artifactId>
               <version>${version.pmd}</version>
             </dependency>
