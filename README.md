@@ -158,6 +158,7 @@ In particular [this page](https://spotbugs.readthedocs.io/en/latest/bugDescripti
 Our SpotBug exclude filters (both global and class-specific) are specified in the 
 `static-analysis/src/main/resources/spotbugs-exclude.xml` file. 
  
+ 
 #### PMD
 
 [PMD's website](https://pmd.github.io/latest/index.html) is a useful resource for information about this tool. 
