@@ -56,9 +56,12 @@
     <exclude name="AvoidCatchingGenericException"/>
     <exclude name="AvoidThrowingRawExceptionTypes"/>
     <exclude name="ExcessiveImports"/>
+    <exclude name="LoosePackageCoupling"/>
   </rule>
 
-  <rule ref="category/java/codestyle.xml/UnnecessaryModifier"/>
+  <!-- https://pmd.github.io/latest/pmd_rules_apex_design.html#cognitivecomplexity -->
+  <rule ref="category/apex/design.xml/CognitiveComplexity" />
+
   <rule ref="category/java/codestyle.xml/UnnecessaryReturn"/>
   <rule ref="category/java/codestyle.xml/UselessQualifiedThis"/>
   <rule ref="category/java/codestyle.xml/UnnecessaryModifier"/>
