@@ -166,4 +166,17 @@ In particular, [this page](https://pmd.github.io/latest/pmd_rules_java.html) lis
 - PMD is executed via `pmd-maven-plugin` in Maven's `test-compile` phase.
     - PMD can be run via `mvn pmd:check` command.
     
-PMD's rules are configured in the `static-analysis/src/main/resources/pmd-rulesets.xml` file.    
+PMD's rules are configured in the `static-analysis/src/main/resources/pmd-rulesets.xml` file.
+
+### Set `$DARK_SKY_API_KEY` Environment Variable
+
+`WeatherServiceClient` relies on `DARK_SKY_API_KEY` environment variable to contain a valid API Key from Dark Sky Net.
+To set the `DARK_SKY_API_KEY` environment variable:
+- Obtain your secret key from [https://darksky.net/dev](https://darksky.net/dev).
+- Set `DARK_SKY_API_KEY` environment variable to the value of the secret key. For example, add the following your `.bashrc`:
+
+```export DARK_SKY_API_KEY='<dark-sky-api-key>'```
+
+Note: When running IntelliJ on Linux Mint with the `DARK_SKY_API_KEY` environment variable being set in the user's
+`.bashrc` file, **IntelliJ needs to be started via command line**. When IntelliJ is started from the System Menu, the 
+`HelloWorldApplication` running in IntelliJ fails to read the value of the `DARK_SKY_API_KEY` environment variable.
