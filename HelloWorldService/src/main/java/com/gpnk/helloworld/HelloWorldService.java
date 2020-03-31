@@ -1,5 +1,7 @@
 package com.gpnk.helloworld;
 
+import com.gpnk.common.response.examples.CustomResponseCodeException;
+import com.gpnk.common.response.examples.FullyCustomizedSampleException;
 import com.gpnk.models.Location;
 import com.gpnk.models.User;
 import com.gpnk.models.WeatherReport;
@@ -35,6 +37,14 @@ public class HelloWorldService {
      * Returns a WeatherReport for the user's location, if it can be determined.
      */
     public Optional<WeatherReport> getWeatherForUser(final String userName) {
+
+        if ("foo".equals(userName)) {
+            throw new CustomResponseCodeException("CustomResponseCodeException message.");
+        }
+
+        if ("bar".equals(userName)) {
+            throw new FullyCustomizedSampleException("Exception like no other :) Demos a fully customized ExceptionMapper.");
+        }
 
         Optional<User> user = userDAO.getUserByName(userName);
 

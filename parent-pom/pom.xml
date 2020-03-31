@@ -261,6 +261,7 @@
           <configuration>
             <skip>${skip.checks}</skip>
             <configLocation>gpnk-checkstyle.xml</configLocation>
+            <suppressionsLocation>gpnk-checkstyle-suppressions.xml</suppressionsLocation>
             <failsOnError>true</failsOnError>
             <encoding>UTF-8</encoding>
             <consoleOutput>true</consoleOutput>
