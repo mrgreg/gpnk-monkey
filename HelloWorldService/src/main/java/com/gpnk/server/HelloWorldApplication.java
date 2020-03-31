@@ -6,6 +6,9 @@ import com.gpnk.common.CommonModule;
 import com.gpnk.common.HealthCheckable;
 import com.gpnk.common.MetricsModule;
 import com.gpnk.common.Resource;
+import com.gpnk.common.response.GenericExceptionMapper;
+import com.gpnk.common.response.examples.CustomResponseCodeExceptionMapper;
+import com.gpnk.common.response.examples.FullyCustomizedExceptionMapper;
 import com.gpnk.models.HelloWorldConfiguration;
 import com.gpnk.server.config.dropwizard.HoconConfigurationFactoryFactory;
 
@@ -154,6 +157,11 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
             log.info("Running startup hook: " + hook.getClass().getName());
             hook.onStartup();
         });
+
+        // register Exception Mappers
+        environment.jersey().register(new CustomResponseCodeExceptionMapper());
+        environment.jersey().register(new GenericExceptionMapper());
+        environment.jersey().register(new FullyCustomizedExceptionMapper());
 
     }
 

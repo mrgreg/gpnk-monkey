@@ -6,7 +6,6 @@ import com.gpnk.models.WeatherReport;
 import com.codahale.metrics.health.HealthCheck;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import org.slf4j.Logger;
 
 import java.util.Optional;
 
@@ -23,9 +22,6 @@ public class DarkSkyWeatherServiceClient implements WeatherServiceClient {
     // https://api.darksky.net/forecast/1b06b5c498df5d71efac20db9ea91fd6/37.8267,-122.4233
 
     private static final String API_URL = "https://api.darksky.net/forecast/{key}/{latitude},{longitude}";
-
-    @Inject
-    private Logger log;
 
     @Inject
     @Named("darkSkySecretKey")
@@ -46,8 +42,8 @@ public class DarkSkyWeatherServiceClient implements WeatherServiceClient {
                 .get();
 
         if (response.getStatus() != Response.Status.OK.getStatusCode()) {
-            log.error("Got non 200 ({}) status from Dark Sky API: {}", response.getStatus(), response.getEntity());
-            return Optional.empty();
+            throw new WeatherServiceException("Got non 200 (" + response.getStatus() + ") status from Dark Sky API: "
+                    + response.getEntity().toString());
         }
 
         // Re: PMD.CloseResource - response is closed within the readEntity method.
