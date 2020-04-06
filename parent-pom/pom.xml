@@ -48,7 +48,7 @@
     <version.flyway>6.3.2</version.flyway>
     <version.jooq>3.13.1</version.jooq>
     <version.metrics-guice>3.2.2</version.metrics-guice>
-    <version.swagger>2.1.1</version.swagger>
+    <version.swagger>2.1.2</version.swagger>
 
   </properties>
 
